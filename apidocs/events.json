@@ -1,0 +1,1304 @@
+{
+  "Actor": [
+    {
+      "name": "onPlayerGiveDamageActor",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "actor",
+          "type": "void*"
+        },
+        {
+          "name": "amount",
+          "type": "float"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "part",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onActorStreamIn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "actor",
+          "type": "void*"
+        },
+        {
+          "name": "forPlayer",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onActorStreamOut",
+      "badret": "none",
+      "args": [
+        {
+          "name": "actor",
+          "type": "void*"
+        },
+        {
+          "name": "forPlayer",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Checkpoint": [
+    {
+      "name": "onPlayerEnterCheckpoint",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerLeaveCheckpoint",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerEnterRaceCheckpoint",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerLeaveRaceCheckpoint",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Class": [
+    {
+      "name": "onPlayerRequestClass",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "classId",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "Console": [
+    {
+      "name": "onConsoleText",
+      "badret": "true",
+      "args": [
+        {
+          "name": "command",
+          "type": "CAPIStringView"
+        },
+        {
+          "name": "parameters",
+          "type": "CAPIStringView"
+        }
+      ]
+    },
+    {
+      "name": "onRconLoginAttempt",
+      "badret": "true",
+      "args": [
+        {
+          "name": "address",
+          "type": "CAPIStringView"
+        },
+        {
+          "name": "password",
+          "type": "CAPIStringView"
+        },
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "Core": [
+    {
+      "name": "onTick",
+      "badret": "none",
+      "args": [
+        {
+          "name": "elapsed",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "CustomModel": [
+    {
+      "name": "onPlayerFinishedDownloading",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vw",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerRequestDownload",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "type",
+          "type": "int"
+        },
+        {
+          "name": "checksum",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "Dialog": [
+    {
+      "name": "onDialogResponse",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "dialogId",
+          "type": "int"
+        },
+        {
+          "name": "response",
+          "type": "int"
+        },
+        {
+          "name": "listItem",
+          "type": "int"
+        },
+        {
+          "name": "inputText",
+          "type": "CAPIStringView"
+        }
+      ]
+    }
+  ],
+  "GangZone": [
+    {
+      "name": "onPlayerEnterGangZone",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "zone",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerLeaveGangZone",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "zone",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerClickGangZone",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "zone",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Menu": [
+    {
+      "name": "onPlayerSelectedMenuRow",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "row",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerExitedMenu",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Object": [
+    {
+      "name": "onObjectMove",
+      "badret": "none",
+      "args": [
+        {
+          "name": "object",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerObjectMove",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerEditObject",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        },
+        {
+          "name": "response",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        },
+        {
+          "name": "rotationX",
+          "type": "float"
+        },
+        {
+          "name": "rotationY",
+          "type": "float"
+        },
+        {
+          "name": "rotationZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerEditPlayerObject",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        },
+        {
+          "name": "response",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        },
+        {
+          "name": "rotationX",
+          "type": "float"
+        },
+        {
+          "name": "rotationY",
+          "type": "float"
+        },
+        {
+          "name": "rotationZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerEditAttachedObject",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "saved",
+          "type": "bool"
+        },
+        {
+          "name": "index",
+          "type": "int"
+        },
+        {
+          "name": "model",
+          "type": "int"
+        },
+        {
+          "name": "bone",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        },
+        {
+          "name": "rotationX",
+          "type": "float"
+        },
+        {
+          "name": "rotationY",
+          "type": "float"
+        },
+        {
+          "name": "rotationZ",
+          "type": "float"
+        },
+        {
+          "name": "scaleX",
+          "type": "float"
+        },
+        {
+          "name": "scaleY",
+          "type": "float"
+        },
+        {
+          "name": "scaleZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerSelectObject",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        },
+        {
+          "name": "model",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerSelectPlayerObject",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        },
+        {
+          "name": "model",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    }
+  ],
+  "Pickup": [
+    {
+      "name": "onPlayerPickUpPickup",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "pickup",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "TextDraw": [
+    {
+      "name": "onPlayerCancelTextDrawSelection",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerCancelPlayerTextDrawSelection",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerClickTextDraw",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "textdraw",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerClickPlayerTextDraw",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "textdraw",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Player": [
+    {
+      "name": "onPlayerConnect",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerSpawn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerCommandText",
+      "badret": "true",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "command",
+          "type": "CAPIStringView"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerKeyStateChange",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "newKeys",
+          "type": "int"
+        },
+        {
+          "name": "oldKeys",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onIncomingConnection",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "ipAddress",
+          "type": "CAPIStringView"
+        },
+        {
+          "name": "port",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerDisconnect",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "reason",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerRequestSpawn",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerStreamIn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "forPlayer",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerStreamOut",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "forPlayer",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerText",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "text",
+          "type": "CAPIStringView"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerShotMissed",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerShotPlayer",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "target",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerShotVehicle",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "target",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerShotObject",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "target",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerShotPlayerObject",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "target",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerDeath",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "killer",
+          "type": "void*"
+        },
+        {
+          "name": "reason",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerTakeDamage",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "from",
+          "type": "void*"
+        },
+        {
+          "name": "amount",
+          "type": "float"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "bodypart",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerGiveDamage",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "to",
+          "type": "void*"
+        },
+        {
+          "name": "amount",
+          "type": "float"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "bodypart",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerInteriorChange",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "newInterior",
+          "type": "int"
+        },
+        {
+          "name": "oldInterior",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerStateChange",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "newState",
+          "type": "int"
+        },
+        {
+          "name": "oldState",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerClickMap",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerClickPlayer",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "clicked",
+          "type": "void*"
+        },
+        {
+          "name": "source",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onClientCheckResponse",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "actionType",
+          "type": "int"
+        },
+        {
+          "name": "address",
+          "type": "int"
+        },
+        {
+          "name": "result",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerUpdate",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Vehicle": [
+    {
+      "name": "onVehicleStreamIn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleStreamOut",
+      "badret": "none",
+      "args": [
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleDeath",
+      "badret": "none",
+      "args": [
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerEnterVehicle",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "passenger",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "onPlayerExitVehicle",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleDamageStatusUpdate",
+      "badret": "none",
+      "args": [
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onVehiclePaintJob",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "paintJob",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleMod",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "component",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleRespray",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "color1",
+          "type": "int"
+        },
+        {
+          "name": "color2",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onEnterExitModShop",
+      "badret": "none",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "enterexit",
+          "type": "int"
+        },
+        {
+          "name": "interiorId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleSpawn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "vehicle",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onUnoccupiedVehicleUpdate",
+      "badret": "false",
+      "args": [
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "seat",
+          "type": "int"
+        },
+        {
+          "name": "posX",
+          "type": "float"
+        },
+        {
+          "name": "posY",
+          "type": "float"
+        },
+        {
+          "name": "posZ",
+          "type": "float"
+        },
+        {
+          "name": "velocityX",
+          "type": "float"
+        },
+        {
+          "name": "velocityY",
+          "type": "float"
+        },
+        {
+          "name": "velocityZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onTrailerUpdate",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "trailer",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onVehicleSirenStateChange",
+      "badret": "false",
+      "args": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "sirenState",
+          "type": "int"
+        }
+      ]
+    }
+  ]
+}
