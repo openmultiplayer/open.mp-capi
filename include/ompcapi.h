@@ -55,10 +55,21 @@ typedef void (*ComponentOnReadyCallback)();
 typedef void (*ComponentOnResetCallback)();
 typedef void (*ComponentOnFreeCallback)();
 
+/* Borrowed, read-only view. Callee does NOT copy or allocate.
+   Lifetime is tied to the source that produced it. */
 struct CAPIStringView
 {
-	unsigned int len;
-	char* data;
+	unsigned int len; /* string length */
+	const char* data; /* may not be NUL-terminated */
+};
+
+/* Caller-provided, writable buffer. Callee copies into this.
+   'capacity' is total space available in 'data'. Callee sets 'len' written. */
+struct CAPIStringBuffer
+{
+	unsigned int capacity; /* bytes available in 'data' */
+	unsigned int len; /* bytes actually written (out) */
+	char* data; /* writable buffer supplied by the caller */
 };
 
 #ifndef CAPI_COMPONENT_BUILD
@@ -130,12 +141,12 @@ typedef bool (*Class_Edit_t)(void* classptr, uint8_t teamid, int skin, float x, 
 // Player function type definitions
 typedef bool (*Player_SetSpawnInfo_t)(void* player, uint8_t team, int skin, float x, float y, float z, float angle, uint8_t weapon1, uint32_t ammo1, uint8_t weapon2, uint32_t ammo2, uint8_t weapon3, uint32_t ammo3);
 typedef bool (*Player_GetSpawnInfo_t)(void* player, uint8_t* team, int* skin, float* x, float* y, float* z, float* angle, uint8_t* weapon1, uint32_t* ammo1, uint8_t* weapon2, uint32_t* ammo2, uint8_t* weapon3, uint32_t* ammo3);
-typedef int (*Player_GetNetworkStats_t)(void* player, struct CAPIStringView* output);
+typedef int (*Player_GetNetworkStats_t)(void* player, struct CAPIStringBuffer* output);
 typedef int (*Player_NetStatsBytesReceived_t)(void* player);
 typedef int (*Player_NetStatsBytesSent_t)(void* player);
 typedef int (*Player_NetStatsConnectionStatus_t)(void* player);
 typedef int (*Player_NetStatsGetConnectedTime_t)(void* player);
-typedef bool (*Player_NetStatsGetIpPort_t)(void* player, struct CAPIStringView* output);
+typedef bool (*Player_NetStatsGetIpPort_t)(void* player, struct CAPIStringBuffer* output);
 typedef int (*Player_NetStatsMessagesReceived_t)(void* player);
 typedef int (*Player_NetStatsMessagesRecvPerSecond_t)(void* player);
 typedef int (*Player_NetStatsMessagesSent_t)(void* player);
@@ -242,7 +253,7 @@ typedef bool (*Player_EnableStuntBonus_t)(void* player, bool enable);
 typedef int (*Player_GetPlayerAmmo_t)(void* player);
 typedef int (*Player_GetAnimationIndex_t)(void* player);
 typedef float (*Player_GetFacingAngle_t)(void* player);
-typedef int (*Player_GetIp_t)(void* player, struct CAPIStringView* ip);
+typedef int (*Player_GetIp_t)(void* player, struct CAPIStringBuffer* ip);
 typedef int (*Player_GetSpecialAction_t)(void* player);
 typedef int (*Player_GetVehicleID_t)(void* player);
 typedef int (*Player_GetVehicleSeat_t)(void* player);
@@ -328,7 +339,7 @@ typedef void* (*Component_Create_t)(uint64_t uid, const char* name, struct Compo
 typedef bool (*Config_GetAsBool_t)(const char* cvar);
 typedef int (*Config_GetAsInt_t)(const char* cvar);
 typedef float (*Config_GetAsFloat_t)(const char* cvar);
-typedef int (*Config_GetAsString_t)(const char* cvar, struct CAPIStringView* output);
+typedef int (*Config_GetAsString_t)(const char* cvar, struct CAPIStringBuffer* output);
 
 
 // Core function type definitions
@@ -349,7 +360,7 @@ typedef bool (*Core_DisableNameTagsLOS_t)();
 typedef bool (*Core_EnableZoneNames_t)(bool enable);
 typedef bool (*Core_ShowGameTextForAll_t)(const char* msg, int time, int style);
 typedef bool (*Core_HideGameTextForAll_t)(int style);
-typedef int (*Core_NetworkStats_t)(struct CAPIStringView* output);
+typedef int (*Core_NetworkStats_t)(struct CAPIStringBuffer* output);
 typedef int (*Core_ServerTickRate_t)();
 typedef bool (*Core_GetWeaponName_t)(int weaponid, struct CAPIStringView* output);
 typedef bool (*Core_SetChatRadius_t)(float globalChatRadius);
