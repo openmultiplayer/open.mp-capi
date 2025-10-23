@@ -897,7 +897,7 @@
         },
         {
           "name": "output",
-          "type": "CAPIStringView*"
+          "type": "CAPIStringBuffer*"
         }
       ]
     },
@@ -951,7 +951,7 @@
         },
         {
           "name": "output",
-          "type": "CAPIStringView*"
+          "type": "CAPIStringBuffer*"
         }
       ]
     },
@@ -2585,7 +2585,7 @@
         },
         {
           "name": "ip",
-          "type": "CAPIStringView*"
+          "type": "CAPIStringBuffer*"
         }
       ]
     },
@@ -3697,6 +3697,16 @@
     },
     {
       "ret": "bool",
+      "name": "Player_IsUsingOmp",
+      "params": [
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
       "name": "Player_IsInModShop",
       "params": [
         {
@@ -3738,16 +3748,6 @@
     {
       "ret": "float",
       "name": "Player_GetTrainSpeed",
-      "params": [
-        {
-          "name": "player",
-          "type": "void*"
-        }
-      ]
-    },
-    {
-      "ret": "bool",
-      "name": "Player_IsUsingOmp",
       "params": [
         {
           "name": "player",
@@ -3829,7 +3829,7 @@
         },
         {
           "name": "output",
-          "type": "CAPIStringView*"
+          "type": "CAPIStringBuffer*"
         }
       ]
     }
@@ -3988,7 +3988,7 @@
       "params": [
         {
           "name": "output",
-          "type": "CAPIStringView*"
+          "type": "CAPIStringBuffer*"
         }
       ]
     },
@@ -4262,6 +4262,2215 @@
         {
           "name": "script",
           "type": "const char*"
+        }
+      ]
+    },
+    {
+      "ret": "void*",
+      "name": "NPC_Create",
+      "params": [
+        {
+          "name": "char*",
+          "type": "const"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_Destroy",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "void*",
+      "name": "NPC_FromID",
+      "params": [
+        {
+          "name": "npcid",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetID",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsValid",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_Spawn",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_Respawn",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetPos",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetPos",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float*"
+        },
+        {
+          "name": "y",
+          "type": "float*"
+        },
+        {
+          "name": "z",
+          "type": "float*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetRot",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "rx",
+          "type": "float"
+        },
+        {
+          "name": "ry",
+          "type": "float"
+        },
+        {
+          "name": "rz",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetRot",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "rx",
+          "type": "float*"
+        },
+        {
+          "name": "ry",
+          "type": "float*"
+        },
+        {
+          "name": "rz",
+          "type": "float*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetFacingAngle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "angle",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetFacingAngle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "angle",
+          "type": "float*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetVirtualWorld",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "virtualWorld",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetVirtualWorld",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetInterior",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "interior",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetInterior",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_Move",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        },
+        {
+          "name": "moveType",
+          "type": "int"
+        },
+        {
+          "name": "moveSpeed",
+          "type": "float"
+        },
+        {
+          "name": "stopRange",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_MoveToPlayer",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "moveType",
+          "type": "int"
+        },
+        {
+          "name": "moveSpeed",
+          "type": "float"
+        },
+        {
+          "name": "stopRange",
+          "type": "float"
+        },
+        {
+          "name": "posCheckUpdateDelay",
+          "type": "int"
+        },
+        {
+          "name": "autoRestart",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StopMove",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsMoving",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetSkin",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "model",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsStreamedIn",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsAnyStreamedIn",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetAll",
+      "params": [
+        {
+          "name": "npcsArr",
+          "type": "int*"
+        },
+        {
+          "name": "maxNPCs",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetHealth",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "health",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "float",
+      "name": "NPC_GetHealth",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetArmour",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "armour",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "float",
+      "name": "NPC_GetArmour",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsDead",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetInvulnerable",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "toggle",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsInvulnerable",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetWeapon",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "uint8_t"
+        }
+      ]
+    },
+    {
+      "ret": "uint8_t",
+      "name": "NPC_GetWeapon",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetAmmo",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "ammo",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetAmmo",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetAmmoInClip",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "ammo",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetAmmoInClip",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_EnableReloading",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "enable",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsReloadEnabled",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsReloading",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_EnableInfiniteAmmo",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "enable",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsInfiniteAmmoEnabled",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponState",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetKeys",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "upAndDown",
+          "type": "uint16_t"
+        },
+        {
+          "name": "leftAndRight",
+          "type": "uint16_t"
+        },
+        {
+          "name": "keys",
+          "type": "uint16_t"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetKeys",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "upAndDown",
+          "type": "uint16_t*"
+        },
+        {
+          "name": "leftAndRight",
+          "type": "uint16_t*"
+        },
+        {
+          "name": "keys",
+          "type": "uint16_t*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetWeaponSkillLevel",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "skill",
+          "type": "uint8_t"
+        },
+        {
+          "name": "level",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponSkillLevel",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "skill",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_MeleeAttack",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "time",
+          "type": "int"
+        },
+        {
+          "name": "secondaryAttack",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StopMeleeAttack",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsMeleeAttacking",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetFightingStyle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "style",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetFightingStyle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_Shoot",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "uint8_t"
+        },
+        {
+          "name": "hitId",
+          "type": "int"
+        },
+        {
+          "name": "hitType",
+          "type": "int"
+        },
+        {
+          "name": "endX",
+          "type": "float"
+        },
+        {
+          "name": "endY",
+          "type": "float"
+        },
+        {
+          "name": "endZ",
+          "type": "float"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        },
+        {
+          "name": "isHit",
+          "type": "bool"
+        },
+        {
+          "name": "checkInBetweenFlags",
+          "type": "uint8_t"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsShooting",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_AimAt",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        },
+        {
+          "name": "shoot",
+          "type": "bool"
+        },
+        {
+          "name": "shootDelay",
+          "type": "int"
+        },
+        {
+          "name": "updateAngle",
+          "type": "bool"
+        },
+        {
+          "name": "offsetFromX",
+          "type": "float"
+        },
+        {
+          "name": "offsetFromY",
+          "type": "float"
+        },
+        {
+          "name": "offsetFromZ",
+          "type": "float"
+        },
+        {
+          "name": "checkInBetweenFlags",
+          "type": "uint8_t"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_AimAtPlayer",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "atPlayer",
+          "type": "void*"
+        },
+        {
+          "name": "shoot",
+          "type": "bool"
+        },
+        {
+          "name": "shootDelay",
+          "type": "int"
+        },
+        {
+          "name": "updateAngle",
+          "type": "bool"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        },
+        {
+          "name": "offsetFromX",
+          "type": "float"
+        },
+        {
+          "name": "offsetFromY",
+          "type": "float"
+        },
+        {
+          "name": "offsetFromZ",
+          "type": "float"
+        },
+        {
+          "name": "checkInBetweenFlags",
+          "type": "uint8_t"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StopAim",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsAiming",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsAimingAtPlayer",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "atPlayer",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetWeaponAccuracy",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "accuracy",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "float",
+      "name": "NPC_GetWeaponAccuracy",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetWeaponReloadTime",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "time",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponReloadTime",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponActualReloadTime",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetWeaponShootTime",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "time",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponShootTime",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetWeaponClipSize",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "size",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponClipSize",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetWeaponActualClipSize",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_EnterVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "seatId",
+          "type": "int"
+        },
+        {
+          "name": "moveType",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ExitVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_PutInVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "seatId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_RemoveFromVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "void*",
+      "name": "NPC_GetVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetVehicleID",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "void*",
+      "name": "NPC_GetEnteringVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetEnteringVehicleID",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetVehicleSeat",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetEnteringVehicleSeat",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsEnteringVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_UseVehicleSiren",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "use",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsVehicleSirenUsed",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetVehicleHealth",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "health",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "float",
+      "name": "NPC_GetVehicleHealth",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetVehicleHydraThrusters",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "direction",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetVehicleHydraThrusters",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetVehicleGearState",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "gearState",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetVehicleGearState",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetVehicleTrainSpeed",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "speed",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "float",
+      "name": "NPC_GetVehicleTrainSpeed",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_CreatePath",
+      "params": []
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_DestroyPath",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_DestroyAllPath",
+      "params": []
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetPathCount",
+      "params": []
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_AddPointToPath",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        },
+        {
+          "name": "stopRange",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_RemovePointFromPath",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        },
+        {
+          "name": "pointIndex",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ClearPath",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetPathPointCount",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetPathPoint",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        },
+        {
+          "name": "pointIndex",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float*"
+        },
+        {
+          "name": "y",
+          "type": "float*"
+        },
+        {
+          "name": "z",
+          "type": "float*"
+        },
+        {
+          "name": "stopRange",
+          "type": "float*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetCurrentPathPointIndex",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsValidPath",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_HasPathPointInRange",
+      "params": [
+        {
+          "name": "pathId",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        },
+        {
+          "name": "radius",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_MoveByPath",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "pathId",
+          "type": "int"
+        },
+        {
+          "name": "moveType",
+          "type": "int"
+        },
+        {
+          "name": "moveSpeed",
+          "type": "float"
+        },
+        {
+          "name": "reverse",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ResetAnimation",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetAnimation",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "animationId",
+          "type": "int"
+        },
+        {
+          "name": "delta",
+          "type": "float"
+        },
+        {
+          "name": "loop",
+          "type": "bool"
+        },
+        {
+          "name": "lockX",
+          "type": "bool"
+        },
+        {
+          "name": "lockY",
+          "type": "bool"
+        },
+        {
+          "name": "freeze",
+          "type": "bool"
+        },
+        {
+          "name": "time",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetAnimation",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "animationId",
+          "type": "int*"
+        },
+        {
+          "name": "delta",
+          "type": "float*"
+        },
+        {
+          "name": "loop",
+          "type": "bool*"
+        },
+        {
+          "name": "lockX",
+          "type": "bool*"
+        },
+        {
+          "name": "lockY",
+          "type": "bool*"
+        },
+        {
+          "name": "freeze",
+          "type": "bool*"
+        },
+        {
+          "name": "time",
+          "type": "int*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ApplyAnimation",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "char*",
+          "type": "const"
+        },
+        {
+          "name": "char*",
+          "type": "const"
+        },
+        {
+          "name": "delta",
+          "type": "float"
+        },
+        {
+          "name": "loop",
+          "type": "bool"
+        },
+        {
+          "name": "lockX",
+          "type": "bool"
+        },
+        {
+          "name": "lockY",
+          "type": "bool"
+        },
+        {
+          "name": "freeze",
+          "type": "bool"
+        },
+        {
+          "name": "time",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ClearAnimations",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetSpecialAction",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "action",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetSpecialAction",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StartPlayback",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "char*",
+          "type": "const"
+        },
+        {
+          "name": "autoUnload",
+          "type": "bool"
+        },
+        {
+          "name": "startPosX",
+          "type": "float"
+        },
+        {
+          "name": "startPosY",
+          "type": "float"
+        },
+        {
+          "name": "startPosZ",
+          "type": "float"
+        },
+        {
+          "name": "startRotX",
+          "type": "float"
+        },
+        {
+          "name": "startRotY",
+          "type": "float"
+        },
+        {
+          "name": "startRotZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StartPlaybackEx",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "recordId",
+          "type": "int"
+        },
+        {
+          "name": "autoUnload",
+          "type": "bool"
+        },
+        {
+          "name": "startPosX",
+          "type": "float"
+        },
+        {
+          "name": "startPosY",
+          "type": "float"
+        },
+        {
+          "name": "startPosZ",
+          "type": "float"
+        },
+        {
+          "name": "startRotX",
+          "type": "float"
+        },
+        {
+          "name": "startRotY",
+          "type": "float"
+        },
+        {
+          "name": "startRotZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StopPlayback",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_PausePlayback",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsPlayingPlayback",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsPlaybackPaused",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_LoadRecord",
+      "params": [
+        {
+          "name": "char*",
+          "type": "const"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_UnloadRecord",
+      "params": [
+        {
+          "name": "recordId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsValidRecord",
+      "params": [
+        {
+          "name": "recordId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetRecordCount",
+      "params": []
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_UnloadAllRecords",
+      "params": []
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_OpenNode",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_CloseNode",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsNodeOpen",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetNodeType",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetNodePoint",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        },
+        {
+          "name": "pointId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetNodePointPosition",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "float*"
+        },
+        {
+          "name": "y",
+          "type": "float*"
+        },
+        {
+          "name": "z",
+          "type": "float*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetNodePointCount",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetNodeInfo",
+      "params": [
+        {
+          "name": "nodeId",
+          "type": "int"
+        },
+        {
+          "name": "vehicleNodes",
+          "type": "uint32_t*"
+        },
+        {
+          "name": "pedNodes",
+          "type": "uint32_t*"
+        },
+        {
+          "name": "naviNodes",
+          "type": "uint32_t*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_PlayNode",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "nodeId",
+          "type": "int"
+        },
+        {
+          "name": "moveType",
+          "type": "int"
+        },
+        {
+          "name": "moveSpeed",
+          "type": "float"
+        },
+        {
+          "name": "radius",
+          "type": "float"
+        },
+        {
+          "name": "setAngle",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_StopPlayingNode",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_PausePlayingNode",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ResumePlayingNode",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsPlayingNodePaused",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_IsPlayingNode",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_ChangeNode",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "nodeId",
+          "type": "int"
+        },
+        {
+          "name": "linkId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_UpdateNodePoint",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "pointId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetSurfingOffset",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float"
+        },
+        {
+          "name": "y",
+          "type": "float"
+        },
+        {
+          "name": "z",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_GetSurfingOffset",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "x",
+          "type": "float*"
+        },
+        {
+          "name": "y",
+          "type": "float*"
+        },
+        {
+          "name": "z",
+          "type": "float*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetSurfingVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetSurfingVehicle",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetSurfingObject",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetSurfingObject",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_SetSurfingPlayerObject",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "objectId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "ret": "int",
+      "name": "NPC_GetSurfingPlayerObject",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "NPC_ResetSurfingData",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
         }
       ]
     }
@@ -6974,36 +9183,6 @@
         {
           "name": "enable",
           "type": "bool"
-        }
-      ]
-    }
-  ],
-  "Recording": [
-    {
-      "ret": "bool",
-      "name": "Recording_Start",
-      "params": [
-        {
-          "name": "player",
-          "type": "void*"
-        },
-        {
-          "name": "type",
-          "type": "int"
-        },
-        {
-          "name": "file",
-          "type": "const char*"
-        }
-      ]
-    },
-    {
-      "ret": "bool",
-      "name": "Recording_Stop",
-      "params": [
-        {
-          "name": "player",
-          "type": "void*"
         }
       ]
     }
@@ -10356,6 +12535,36 @@
       "params": [
         {
           "name": "vehicle",
+          "type": "void*"
+        }
+      ]
+    }
+  ],
+  "Recording": [
+    {
+      "ret": "bool",
+      "name": "Recording_Start",
+      "params": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "type",
+          "type": "int"
+        },
+        {
+          "name": "file",
+          "type": "const char*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "Recording_Stop",
+      "params": [
+        {
+          "name": "player",
           "type": "void*"
         }
       ]

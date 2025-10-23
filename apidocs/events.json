@@ -291,6 +291,432 @@
       ]
     }
   ],
+  "NPC": [
+    {
+      "name": "onNPCFinishMove",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onNPCCreate",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onNPCDestroy",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onNPCWeaponStateChange",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "newState",
+          "type": "int"
+        },
+        {
+          "name": "oldState",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCTakeDamage",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "damager",
+          "type": "void*"
+        },
+        {
+          "name": "damage",
+          "type": "float"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "bodyPart",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCGiveDamage",
+      "badret": "true",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "damaged",
+          "type": "void*"
+        },
+        {
+          "name": "damage",
+          "type": "float"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "bodyPart",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCDeath",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "killer",
+          "type": "void*"
+        },
+        {
+          "name": "reason",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCSpawn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onNPCRespawn",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
+      "name": "onNPCPlaybackStart",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "recordId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCPlaybackEnd",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "recordId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCShotMissed",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onNPCShotPlayer",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onNPCShotNPC",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "npcTarget",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onNPCShotVehicle",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "vehicle",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onNPCShotObject",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "object",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onNPCShotPlayerObject",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "playerObject",
+          "type": "void*"
+        },
+        {
+          "name": "weapon",
+          "type": "int"
+        },
+        {
+          "name": "offsetX",
+          "type": "float"
+        },
+        {
+          "name": "offsetY",
+          "type": "float"
+        },
+        {
+          "name": "offsetZ",
+          "type": "float"
+        }
+      ]
+    },
+    {
+      "name": "onNPCFinishNodePoint",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "nodeId",
+          "type": "int"
+        },
+        {
+          "name": "pointId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCFinishNode",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "nodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCChangeNode",
+      "badret": "false",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "newNodeId",
+          "type": "int"
+        },
+        {
+          "name": "oldNodeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCFinishMovePath",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "pathId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "name": "onNPCFinishMovePathPoint",
+      "badret": "none",
+      "args": [
+        {
+          "name": "npc",
+          "type": "void*"
+        },
+        {
+          "name": "pathId",
+          "type": "int"
+        },
+        {
+          "name": "pointId",
+          "type": "int"
+        }
+      ]
+    }
+  ],
   "Object": [
     {
       "name": "onObjectMove",
