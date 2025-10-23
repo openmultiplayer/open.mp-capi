@@ -86,6 +86,7 @@ typedef void* PlayerTextDraw;
 typedef void* Class;
 typedef void* GangZone;
 typedef void* Pickup;
+typedef void* NPC;
 
 
 // Actor function type definitions
@@ -323,12 +324,12 @@ typedef bool (*Player_IsPlayerUsingOfficialClient_t)(void* player);
 typedef int (*Player_GetAnimationFlags_t)(void* player);
 typedef bool (*Player_IsInDriveByMode_t)(void* player);
 typedef bool (*Player_IsCuffed_t)(void* player);
+typedef bool (*Player_IsUsingOmp_t)(void* player);
 typedef bool (*Player_IsInModShop_t)(void* player);
 typedef int (*Player_GetSirenState_t)(void* player);
 typedef int (*Player_GetLandingGearState_t)(void* player);
 typedef uint32_t (*Player_GetHydraReactorAngle_t)(void* player);
 typedef float (*Player_GetTrainSpeed_t)(void* player);
-typedef bool (*Player_IsPlayerUsingOmp_t)(void* player);
 
 
 // Component function type definitions
@@ -393,6 +394,153 @@ typedef bool (*Core_RemoveRule_t)(const char* name);
 
 // NPC function type definitions
 typedef bool (*NPC_Connect_t)(const char* name, const char* script);
+typedef void* (*NPC_Create_t)(const char*);
+typedef bool (*NPC_Destroy_t)(void* npc);
+typedef void* (*NPC_FromID_t)(int npcid);
+typedef int (*NPC_GetID_t)(void* npc);
+typedef bool (*NPC_IsValid_t)(void* npc);
+typedef bool (*NPC_Spawn_t)(void* npc);
+typedef bool (*NPC_Respawn_t)(void* npc);
+typedef bool (*NPC_SetPos_t)(void* npc, float x, float y, float z);
+typedef bool (*NPC_GetPos_t)(void* npc, float* x, float* y, float* z);
+typedef bool (*NPC_SetRot_t)(void* npc, float rx, float ry, float rz);
+typedef bool (*NPC_GetRot_t)(void* npc, float* rx, float* ry, float* rz);
+typedef bool (*NPC_SetFacingAngle_t)(void* npc, float angle);
+typedef bool (*NPC_GetFacingAngle_t)(void* npc, float* angle);
+typedef bool (*NPC_SetVirtualWorld_t)(void* npc, int virtualWorld);
+typedef int (*NPC_GetVirtualWorld_t)(void* npc);
+typedef bool (*NPC_SetInterior_t)(void* npc, int interior);
+typedef int (*NPC_GetInterior_t)(void* npc);
+typedef bool (*NPC_Move_t)(void* npc, float x, float y, float z, int moveType, float moveSpeed, float stopRange);
+typedef bool (*NPC_MoveToPlayer_t)(void* npc, void* player, int moveType, float moveSpeed, float stopRange, int posCheckUpdateDelay, bool autoRestart);
+typedef bool (*NPC_StopMove_t)(void* npc);
+typedef bool (*NPC_IsMoving_t)(void* npc);
+typedef bool (*NPC_SetSkin_t)(void* npc, int model);
+typedef bool (*NPC_IsStreamedIn_t)(void* npc, void* player);
+typedef bool (*NPC_IsAnyStreamedIn_t)(void* npc);
+typedef int (*NPC_GetAll_t)(int* npcsArr, int maxNPCs);
+typedef bool (*NPC_SetHealth_t)(void* npc, float health);
+typedef float (*NPC_GetHealth_t)(void* npc);
+typedef bool (*NPC_SetArmour_t)(void* npc, float armour);
+typedef float (*NPC_GetArmour_t)(void* npc);
+typedef bool (*NPC_IsDead_t)(void* npc);
+typedef bool (*NPC_SetInvulnerable_t)(void* npc, bool toggle);
+typedef bool (*NPC_IsInvulnerable_t)(void* npc);
+typedef bool (*NPC_SetWeapon_t)(void* npc, uint8_t weapon);
+typedef uint8_t (*NPC_GetWeapon_t)(void* npc);
+typedef bool (*NPC_SetAmmo_t)(void* npc, int ammo);
+typedef int (*NPC_GetAmmo_t)(void* npc);
+typedef bool (*NPC_SetAmmoInClip_t)(void* npc, int ammo);
+typedef int (*NPC_GetAmmoInClip_t)(void* npc);
+typedef bool (*NPC_EnableReloading_t)(void* npc, bool enable);
+typedef bool (*NPC_IsReloadEnabled_t)(void* npc);
+typedef bool (*NPC_IsReloading_t)(void* npc);
+typedef bool (*NPC_EnableInfiniteAmmo_t)(void* npc, bool enable);
+typedef bool (*NPC_IsInfiniteAmmoEnabled_t)(void* npc);
+typedef int (*NPC_GetWeaponState_t)(void* npc);
+typedef bool (*NPC_SetKeys_t)(void* npc, uint16_t upAndDown, uint16_t leftAndRight, uint16_t keys);
+typedef bool (*NPC_GetKeys_t)(void* npc, uint16_t* upAndDown, uint16_t* leftAndRight, uint16_t* keys);
+typedef bool (*NPC_SetWeaponSkillLevel_t)(void* npc, uint8_t skill, int level);
+typedef int (*NPC_GetWeaponSkillLevel_t)(void* npc, int skill);
+typedef bool (*NPC_MeleeAttack_t)(void* npc, int time, bool secondaryAttack);
+typedef bool (*NPC_StopMeleeAttack_t)(void* npc);
+typedef bool (*NPC_IsMeleeAttacking_t)(void* npc);
+typedef bool (*NPC_SetFightingStyle_t)(void* npc, int style);
+typedef int (*NPC_GetFightingStyle_t)(void* npc);
+typedef bool (*NPC_Shoot_t)(void* npc, uint8_t weapon, int hitId, int hitType, float endX, float endY, float endZ, float offsetX, float offsetY, float offsetZ, bool isHit, uint8_t checkInBetweenFlags);
+typedef bool (*NPC_IsShooting_t)(void* npc);
+typedef bool (*NPC_AimAt_t)(void* npc, float x, float y, float z, bool shoot, int shootDelay, bool updateAngle, float offsetFromX, float offsetFromY, float offsetFromZ, uint8_t checkInBetweenFlags);
+typedef bool (*NPC_AimAtPlayer_t)(void* npc, void* atPlayer, bool shoot, int shootDelay, bool updateAngle, float offsetX, float offsetY, float offsetZ, float offsetFromX, float offsetFromY, float offsetFromZ, uint8_t checkInBetweenFlags);
+typedef bool (*NPC_StopAim_t)(void* npc);
+typedef bool (*NPC_IsAiming_t)(void* npc);
+typedef bool (*NPC_IsAimingAtPlayer_t)(void* npc, void* atPlayer);
+typedef bool (*NPC_SetWeaponAccuracy_t)(void* npc, int weapon, float accuracy);
+typedef float (*NPC_GetWeaponAccuracy_t)(void* npc, int weapon);
+typedef bool (*NPC_SetWeaponReloadTime_t)(void* npc, int weapon, int time);
+typedef int (*NPC_GetWeaponReloadTime_t)(void* npc, int weapon);
+typedef int (*NPC_GetWeaponActualReloadTime_t)(void* npc, int weapon);
+typedef bool (*NPC_SetWeaponShootTime_t)(void* npc, int weapon, int time);
+typedef int (*NPC_GetWeaponShootTime_t)(void* npc, int weapon);
+typedef bool (*NPC_SetWeaponClipSize_t)(void* npc, int weapon, int size);
+typedef int (*NPC_GetWeaponClipSize_t)(void* npc, int weapon);
+typedef int (*NPC_GetWeaponActualClipSize_t)(void* npc, int weapon);
+typedef bool (*NPC_EnterVehicle_t)(void* npc, void* vehicle, int seatId, int moveType);
+typedef bool (*NPC_ExitVehicle_t)(void* npc);
+typedef bool (*NPC_PutInVehicle_t)(void* npc, void* vehicle, int seatId);
+typedef bool (*NPC_RemoveFromVehicle_t)(void* npc);
+typedef void* (*NPC_GetVehicle_t)(void* npc);
+typedef int (*NPC_GetVehicleID_t)(void* npc);
+typedef void* (*NPC_GetEnteringVehicle_t)(void* npc);
+typedef int (*NPC_GetEnteringVehicleID_t)(void* npc);
+typedef int (*NPC_GetVehicleSeat_t)(void* npc);
+typedef int (*NPC_GetEnteringVehicleSeat_t)(void* npc);
+typedef bool (*NPC_IsEnteringVehicle_t)(void* npc);
+typedef bool (*NPC_UseVehicleSiren_t)(void* npc, bool use);
+typedef bool (*NPC_IsVehicleSirenUsed_t)(void* npc);
+typedef bool (*NPC_SetVehicleHealth_t)(void* npc, float health);
+typedef float (*NPC_GetVehicleHealth_t)(void* npc);
+typedef bool (*NPC_SetVehicleHydraThrusters_t)(void* npc, int direction);
+typedef int (*NPC_GetVehicleHydraThrusters_t)(void* npc);
+typedef bool (*NPC_SetVehicleGearState_t)(void* npc, int gearState);
+typedef int (*NPC_GetVehicleGearState_t)(void* npc);
+typedef bool (*NPC_SetVehicleTrainSpeed_t)(void* npc, float speed);
+typedef float (*NPC_GetVehicleTrainSpeed_t)(void* npc);
+typedef int (*NPC_CreatePath_t)();
+typedef bool (*NPC_DestroyPath_t)(int pathId);
+typedef bool (*NPC_DestroyAllPath_t)();
+typedef int (*NPC_GetPathCount_t)();
+typedef bool (*NPC_AddPointToPath_t)(int pathId, float x, float y, float z, float stopRange);
+typedef bool (*NPC_RemovePointFromPath_t)(int pathId, int pointIndex);
+typedef bool (*NPC_ClearPath_t)(int pathId);
+typedef int (*NPC_GetPathPointCount_t)(int pathId);
+typedef bool (*NPC_GetPathPoint_t)(int pathId, int pointIndex, float* x, float* y, float* z, float* stopRange);
+typedef int (*NPC_GetCurrentPathPointIndex_t)(void* npc);
+typedef bool (*NPC_IsValidPath_t)(int pathId);
+typedef bool (*NPC_HasPathPointInRange_t)(int pathId, float x, float y, float z, float radius);
+typedef bool (*NPC_MoveByPath_t)(void* npc, int pathId, int moveType, float moveSpeed, bool reverse);
+typedef bool (*NPC_ResetAnimation_t)(void* npc);
+typedef bool (*NPC_SetAnimation_t)(void* npc, int animationId, float delta, bool loop, bool lockX, bool lockY, bool freeze, int time);
+typedef bool (*NPC_GetAnimation_t)(void* npc, int* animationId, float* delta, bool* loop, bool* lockX, bool* lockY, bool* freeze, int* time);
+typedef bool (*NPC_ApplyAnimation_t)(void* npc, const char*, const char*, float delta, bool loop, bool lockX, bool lockY, bool freeze, int time);
+typedef bool (*NPC_ClearAnimations_t)(void* npc);
+typedef bool (*NPC_SetSpecialAction_t)(void* npc, int action);
+typedef int (*NPC_GetSpecialAction_t)(void* npc);
+typedef bool (*NPC_StartPlayback_t)(void* npc, const char*, bool autoUnload, float startPosX, float startPosY, float startPosZ, float startRotX, float startRotY, float startRotZ);
+typedef bool (*NPC_StartPlaybackEx_t)(void* npc, int recordId, bool autoUnload, float startPosX, float startPosY, float startPosZ, float startRotX, float startRotY, float startRotZ);
+typedef bool (*NPC_StopPlayback_t)(void* npc);
+typedef bool (*NPC_PausePlayback_t)(void* npc, bool paused);
+typedef bool (*NPC_IsPlayingPlayback_t)(void* npc);
+typedef bool (*NPC_IsPlaybackPaused_t)(void* npc);
+typedef int (*NPC_LoadRecord_t)(const char*);
+typedef bool (*NPC_UnloadRecord_t)(int recordId);
+typedef bool (*NPC_IsValidRecord_t)(int recordId);
+typedef int (*NPC_GetRecordCount_t)();
+typedef bool (*NPC_UnloadAllRecords_t)();
+typedef bool (*NPC_OpenNode_t)(int nodeId);
+typedef bool (*NPC_CloseNode_t)(int nodeId);
+typedef bool (*NPC_IsNodeOpen_t)(int nodeId);
+typedef int (*NPC_GetNodeType_t)(int nodeId);
+typedef bool (*NPC_SetNodePoint_t)(int nodeId, int pointId);
+typedef bool (*NPC_GetNodePointPosition_t)(int nodeId, float* x, float* y, float* z);
+typedef int (*NPC_GetNodePointCount_t)(int nodeId);
+typedef bool (*NPC_GetNodeInfo_t)(int nodeId, uint32_t* vehicleNodes, uint32_t* pedNodes, uint32_t* naviNodes);
+typedef bool (*NPC_PlayNode_t)(void* npc, int nodeId, int moveType, float moveSpeed, float radius, bool setAngle);
+typedef bool (*NPC_StopPlayingNode_t)(void* npc);
+typedef bool (*NPC_PausePlayingNode_t)(void* npc);
+typedef bool (*NPC_ResumePlayingNode_t)(void* npc);
+typedef bool (*NPC_IsPlayingNodePaused_t)(void* npc);
+typedef bool (*NPC_IsPlayingNode_t)(void* npc);
+typedef int (*NPC_ChangeNode_t)(void* npc, int nodeId, int linkId);
+typedef bool (*NPC_UpdateNodePoint_t)(void* npc, int pointId);
+typedef bool (*NPC_SetSurfingOffset_t)(void* npc, float x, float y, float z);
+typedef bool (*NPC_GetSurfingOffset_t)(void* npc, float* x, float* y, float* z);
+typedef bool (*NPC_SetSurfingVehicle_t)(void* npc, void* vehicle);
+typedef int (*NPC_GetSurfingVehicle_t)(void* npc);
+typedef bool (*NPC_SetSurfingObject_t)(void* npc, void* object);
+typedef int (*NPC_GetSurfingObject_t)(void* npc);
+typedef bool (*NPC_SetSurfingPlayerObject_t)(void* npc, void* player, int objectId);
+typedef int (*NPC_GetSurfingPlayerObject_t)(void* npc);
+typedef bool (*NPC_ResetSurfingData_t)(void* npc);
 
 
 // CustomModel function type definitions
@@ -973,6 +1121,235 @@ struct EventArgs_onPlayerExitedMenu {
     } *list;
 };
 typedef bool (*EventCallback_onPlayerExitedMenu)(struct EventArgs_onPlayerExitedMenu args);
+
+
+// NPC event type and arguments definitions
+struct EventArgs_onNPCFinishMove {
+    int size;
+    struct {
+        void** npc;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCFinishMove)(struct EventArgs_onNPCFinishMove args);
+
+struct EventArgs_onNPCCreate {
+    int size;
+    struct {
+        void** npc;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCCreate)(struct EventArgs_onNPCCreate args);
+
+struct EventArgs_onNPCDestroy {
+    int size;
+    struct {
+        void** npc;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCDestroy)(struct EventArgs_onNPCDestroy args);
+
+struct EventArgs_onNPCWeaponStateChange {
+    int size;
+    struct {
+        void** npc;
+        int* newState;
+        int* oldState;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCWeaponStateChange)(struct EventArgs_onNPCWeaponStateChange args);
+
+struct EventArgs_onNPCTakeDamage {
+    int size;
+    struct {
+        void** npc;
+        void** damager;
+        float* damage;
+        int* weapon;
+        int* bodyPart;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCTakeDamage)(struct EventArgs_onNPCTakeDamage args);
+
+struct EventArgs_onNPCGiveDamage {
+    int size;
+    struct {
+        void** npc;
+        void** damaged;
+        float* damage;
+        int* weapon;
+        int* bodyPart;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCGiveDamage)(struct EventArgs_onNPCGiveDamage args);
+
+struct EventArgs_onNPCDeath {
+    int size;
+    struct {
+        void** npc;
+        void** killer;
+        int* reason;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCDeath)(struct EventArgs_onNPCDeath args);
+
+struct EventArgs_onNPCSpawn {
+    int size;
+    struct {
+        void** npc;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCSpawn)(struct EventArgs_onNPCSpawn args);
+
+struct EventArgs_onNPCRespawn {
+    int size;
+    struct {
+        void** npc;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCRespawn)(struct EventArgs_onNPCRespawn args);
+
+struct EventArgs_onNPCPlaybackStart {
+    int size;
+    struct {
+        void** npc;
+        int* recordId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCPlaybackStart)(struct EventArgs_onNPCPlaybackStart args);
+
+struct EventArgs_onNPCPlaybackEnd {
+    int size;
+    struct {
+        void** npc;
+        int* recordId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCPlaybackEnd)(struct EventArgs_onNPCPlaybackEnd args);
+
+struct EventArgs_onNPCShotMissed {
+    int size;
+    struct {
+        void** npc;
+        int* weapon;
+        float* offsetX;
+        float* offsetY;
+        float* offsetZ;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCShotMissed)(struct EventArgs_onNPCShotMissed args);
+
+struct EventArgs_onNPCShotPlayer {
+    int size;
+    struct {
+        void** npc;
+        void** player;
+        int* weapon;
+        float* offsetX;
+        float* offsetY;
+        float* offsetZ;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCShotPlayer)(struct EventArgs_onNPCShotPlayer args);
+
+struct EventArgs_onNPCShotNPC {
+    int size;
+    struct {
+        void** npc;
+        void** npcTarget;
+        int* weapon;
+        float* offsetX;
+        float* offsetY;
+        float* offsetZ;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCShotNPC)(struct EventArgs_onNPCShotNPC args);
+
+struct EventArgs_onNPCShotVehicle {
+    int size;
+    struct {
+        void** npc;
+        void** vehicle;
+        int* weapon;
+        float* offsetX;
+        float* offsetY;
+        float* offsetZ;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCShotVehicle)(struct EventArgs_onNPCShotVehicle args);
+
+struct EventArgs_onNPCShotObject {
+    int size;
+    struct {
+        void** npc;
+        void** object;
+        int* weapon;
+        float* offsetX;
+        float* offsetY;
+        float* offsetZ;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCShotObject)(struct EventArgs_onNPCShotObject args);
+
+struct EventArgs_onNPCShotPlayerObject {
+    int size;
+    struct {
+        void** npc;
+        void** playerObject;
+        int* weapon;
+        float* offsetX;
+        float* offsetY;
+        float* offsetZ;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCShotPlayerObject)(struct EventArgs_onNPCShotPlayerObject args);
+
+struct EventArgs_onNPCFinishNodePoint {
+    int size;
+    struct {
+        void** npc;
+        int* nodeId;
+        int* pointId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCFinishNodePoint)(struct EventArgs_onNPCFinishNodePoint args);
+
+struct EventArgs_onNPCFinishNode {
+    int size;
+    struct {
+        void** npc;
+        int* nodeId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCFinishNode)(struct EventArgs_onNPCFinishNode args);
+
+struct EventArgs_onNPCChangeNode {
+    int size;
+    struct {
+        void** npc;
+        int* newNodeId;
+        int* oldNodeId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCChangeNode)(struct EventArgs_onNPCChangeNode args);
+
+struct EventArgs_onNPCFinishMovePath {
+    int size;
+    struct {
+        void** npc;
+        int* pathId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCFinishMovePath)(struct EventArgs_onNPCFinishMovePath args);
+
+struct EventArgs_onNPCFinishMovePathPoint {
+    int size;
+    struct {
+        void** npc;
+        int* pathId;
+        int* pointId;
+    } *list;
+};
+typedef bool (*EventCallback_onNPCFinishMovePathPoint)(struct EventArgs_onNPCFinishMovePathPoint args);
 
 
 // Object event type and arguments definitions
@@ -1750,12 +2127,12 @@ struct Player_t {
     Player_GetAnimationFlags_t GetAnimationFlags;
     Player_IsInDriveByMode_t IsInDriveByMode;
     Player_IsCuffed_t IsCuffed;
+    Player_IsUsingOmp_t IsUsingOmp;
     Player_IsInModShop_t IsInModShop;
     Player_GetSirenState_t GetSirenState;
     Player_GetLandingGearState_t GetLandingGearState;
     Player_GetHydraReactorAngle_t GetHydraReactorAngle;
     Player_GetTrainSpeed_t GetTrainSpeed;
-    Player_IsPlayerUsingOmp_t IsPlayerUsingOmp;
 };
 
 // Component functions
@@ -1824,6 +2201,153 @@ struct Core_t {
 // NPC functions
 struct NPC_t {
     NPC_Connect_t Connect;
+    NPC_Create_t Create;
+    NPC_Destroy_t Destroy;
+    NPC_FromID_t FromID;
+    NPC_GetID_t GetID;
+    NPC_IsValid_t IsValid;
+    NPC_Spawn_t Spawn;
+    NPC_Respawn_t Respawn;
+    NPC_SetPos_t SetPos;
+    NPC_GetPos_t GetPos;
+    NPC_SetRot_t SetRot;
+    NPC_GetRot_t GetRot;
+    NPC_SetFacingAngle_t SetFacingAngle;
+    NPC_GetFacingAngle_t GetFacingAngle;
+    NPC_SetVirtualWorld_t SetVirtualWorld;
+    NPC_GetVirtualWorld_t GetVirtualWorld;
+    NPC_SetInterior_t SetInterior;
+    NPC_GetInterior_t GetInterior;
+    NPC_Move_t Move;
+    NPC_MoveToPlayer_t MoveToPlayer;
+    NPC_StopMove_t StopMove;
+    NPC_IsMoving_t IsMoving;
+    NPC_SetSkin_t SetSkin;
+    NPC_IsStreamedIn_t IsStreamedIn;
+    NPC_IsAnyStreamedIn_t IsAnyStreamedIn;
+    NPC_GetAll_t GetAll;
+    NPC_SetHealth_t SetHealth;
+    NPC_GetHealth_t GetHealth;
+    NPC_SetArmour_t SetArmour;
+    NPC_GetArmour_t GetArmour;
+    NPC_IsDead_t IsDead;
+    NPC_SetInvulnerable_t SetInvulnerable;
+    NPC_IsInvulnerable_t IsInvulnerable;
+    NPC_SetWeapon_t SetWeapon;
+    NPC_GetWeapon_t GetWeapon;
+    NPC_SetAmmo_t SetAmmo;
+    NPC_GetAmmo_t GetAmmo;
+    NPC_SetAmmoInClip_t SetAmmoInClip;
+    NPC_GetAmmoInClip_t GetAmmoInClip;
+    NPC_EnableReloading_t EnableReloading;
+    NPC_IsReloadEnabled_t IsReloadEnabled;
+    NPC_IsReloading_t IsReloading;
+    NPC_EnableInfiniteAmmo_t EnableInfiniteAmmo;
+    NPC_IsInfiniteAmmoEnabled_t IsInfiniteAmmoEnabled;
+    NPC_GetWeaponState_t GetWeaponState;
+    NPC_SetKeys_t SetKeys;
+    NPC_GetKeys_t GetKeys;
+    NPC_SetWeaponSkillLevel_t SetWeaponSkillLevel;
+    NPC_GetWeaponSkillLevel_t GetWeaponSkillLevel;
+    NPC_MeleeAttack_t MeleeAttack;
+    NPC_StopMeleeAttack_t StopMeleeAttack;
+    NPC_IsMeleeAttacking_t IsMeleeAttacking;
+    NPC_SetFightingStyle_t SetFightingStyle;
+    NPC_GetFightingStyle_t GetFightingStyle;
+    NPC_Shoot_t Shoot;
+    NPC_IsShooting_t IsShooting;
+    NPC_AimAt_t AimAt;
+    NPC_AimAtPlayer_t AimAtPlayer;
+    NPC_StopAim_t StopAim;
+    NPC_IsAiming_t IsAiming;
+    NPC_IsAimingAtPlayer_t IsAimingAtPlayer;
+    NPC_SetWeaponAccuracy_t SetWeaponAccuracy;
+    NPC_GetWeaponAccuracy_t GetWeaponAccuracy;
+    NPC_SetWeaponReloadTime_t SetWeaponReloadTime;
+    NPC_GetWeaponReloadTime_t GetWeaponReloadTime;
+    NPC_GetWeaponActualReloadTime_t GetWeaponActualReloadTime;
+    NPC_SetWeaponShootTime_t SetWeaponShootTime;
+    NPC_GetWeaponShootTime_t GetWeaponShootTime;
+    NPC_SetWeaponClipSize_t SetWeaponClipSize;
+    NPC_GetWeaponClipSize_t GetWeaponClipSize;
+    NPC_GetWeaponActualClipSize_t GetWeaponActualClipSize;
+    NPC_EnterVehicle_t EnterVehicle;
+    NPC_ExitVehicle_t ExitVehicle;
+    NPC_PutInVehicle_t PutInVehicle;
+    NPC_RemoveFromVehicle_t RemoveFromVehicle;
+    NPC_GetVehicle_t GetVehicle;
+    NPC_GetVehicleID_t GetVehicleID;
+    NPC_GetEnteringVehicle_t GetEnteringVehicle;
+    NPC_GetEnteringVehicleID_t GetEnteringVehicleID;
+    NPC_GetVehicleSeat_t GetVehicleSeat;
+    NPC_GetEnteringVehicleSeat_t GetEnteringVehicleSeat;
+    NPC_IsEnteringVehicle_t IsEnteringVehicle;
+    NPC_UseVehicleSiren_t UseVehicleSiren;
+    NPC_IsVehicleSirenUsed_t IsVehicleSirenUsed;
+    NPC_SetVehicleHealth_t SetVehicleHealth;
+    NPC_GetVehicleHealth_t GetVehicleHealth;
+    NPC_SetVehicleHydraThrusters_t SetVehicleHydraThrusters;
+    NPC_GetVehicleHydraThrusters_t GetVehicleHydraThrusters;
+    NPC_SetVehicleGearState_t SetVehicleGearState;
+    NPC_GetVehicleGearState_t GetVehicleGearState;
+    NPC_SetVehicleTrainSpeed_t SetVehicleTrainSpeed;
+    NPC_GetVehicleTrainSpeed_t GetVehicleTrainSpeed;
+    NPC_CreatePath_t CreatePath;
+    NPC_DestroyPath_t DestroyPath;
+    NPC_DestroyAllPath_t DestroyAllPath;
+    NPC_GetPathCount_t GetPathCount;
+    NPC_AddPointToPath_t AddPointToPath;
+    NPC_RemovePointFromPath_t RemovePointFromPath;
+    NPC_ClearPath_t ClearPath;
+    NPC_GetPathPointCount_t GetPathPointCount;
+    NPC_GetPathPoint_t GetPathPoint;
+    NPC_GetCurrentPathPointIndex_t GetCurrentPathPointIndex;
+    NPC_IsValidPath_t IsValidPath;
+    NPC_HasPathPointInRange_t HasPathPointInRange;
+    NPC_MoveByPath_t MoveByPath;
+    NPC_ResetAnimation_t ResetAnimation;
+    NPC_SetAnimation_t SetAnimation;
+    NPC_GetAnimation_t GetAnimation;
+    NPC_ApplyAnimation_t ApplyAnimation;
+    NPC_ClearAnimations_t ClearAnimations;
+    NPC_SetSpecialAction_t SetSpecialAction;
+    NPC_GetSpecialAction_t GetSpecialAction;
+    NPC_StartPlayback_t StartPlayback;
+    NPC_StartPlaybackEx_t StartPlaybackEx;
+    NPC_StopPlayback_t StopPlayback;
+    NPC_PausePlayback_t PausePlayback;
+    NPC_IsPlayingPlayback_t IsPlayingPlayback;
+    NPC_IsPlaybackPaused_t IsPlaybackPaused;
+    NPC_LoadRecord_t LoadRecord;
+    NPC_UnloadRecord_t UnloadRecord;
+    NPC_IsValidRecord_t IsValidRecord;
+    NPC_GetRecordCount_t GetRecordCount;
+    NPC_UnloadAllRecords_t UnloadAllRecords;
+    NPC_OpenNode_t OpenNode;
+    NPC_CloseNode_t CloseNode;
+    NPC_IsNodeOpen_t IsNodeOpen;
+    NPC_GetNodeType_t GetNodeType;
+    NPC_SetNodePoint_t SetNodePoint;
+    NPC_GetNodePointPosition_t GetNodePointPosition;
+    NPC_GetNodePointCount_t GetNodePointCount;
+    NPC_GetNodeInfo_t GetNodeInfo;
+    NPC_PlayNode_t PlayNode;
+    NPC_StopPlayingNode_t StopPlayingNode;
+    NPC_PausePlayingNode_t PausePlayingNode;
+    NPC_ResumePlayingNode_t ResumePlayingNode;
+    NPC_IsPlayingNodePaused_t IsPlayingNodePaused;
+    NPC_IsPlayingNode_t IsPlayingNode;
+    NPC_ChangeNode_t ChangeNode;
+    NPC_UpdateNodePoint_t UpdateNodePoint;
+    NPC_SetSurfingOffset_t SetSurfingOffset;
+    NPC_GetSurfingOffset_t GetSurfingOffset;
+    NPC_SetSurfingVehicle_t SetSurfingVehicle;
+    NPC_GetSurfingVehicle_t GetSurfingVehicle;
+    NPC_SetSurfingObject_t SetSurfingObject;
+    NPC_GetSurfingObject_t GetSurfingObject;
+    NPC_SetSurfingPlayerObject_t SetSurfingPlayerObject;
+    NPC_GetSurfingPlayerObject_t GetSurfingPlayerObject;
+    NPC_ResetSurfingData_t ResetSurfingData;
 };
 
 // CustomModel functions
@@ -2271,11 +2795,10 @@ static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
         return false;
     }
 
-    // Verify one of the core components are available
+    // Verify one of the core C apis is available
     ompapi->Core.TickCount = (Core_TickCount_t)LIBRARY_GET_ADDR(capi_lib, "Core_TickCount");
 
-    // Verify that at least one function was loaded successfully
-    if (!ompapi->Actor.Create)
+    if (!ompapi->Core.TickCount)
     {
         return false;
     }
@@ -2511,12 +3034,12 @@ static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
     ompapi->Player.GetAnimationFlags = (Player_GetAnimationFlags_t)LIBRARY_GET_ADDR(capi_lib, "Player_GetAnimationFlags");
     ompapi->Player.IsInDriveByMode = (Player_IsInDriveByMode_t)LIBRARY_GET_ADDR(capi_lib, "Player_IsInDriveByMode");
     ompapi->Player.IsCuffed = (Player_IsCuffed_t)LIBRARY_GET_ADDR(capi_lib, "Player_IsCuffed");
+    ompapi->Player.IsUsingOmp = (Player_IsUsingOmp_t)LIBRARY_GET_ADDR(capi_lib, "Player_IsUsingOmp");
     ompapi->Player.IsInModShop = (Player_IsInModShop_t)LIBRARY_GET_ADDR(capi_lib, "Player_IsInModShop");
     ompapi->Player.GetSirenState = (Player_GetSirenState_t)LIBRARY_GET_ADDR(capi_lib, "Player_GetSirenState");
     ompapi->Player.GetLandingGearState = (Player_GetLandingGearState_t)LIBRARY_GET_ADDR(capi_lib, "Player_GetLandingGearState");
     ompapi->Player.GetHydraReactorAngle = (Player_GetHydraReactorAngle_t)LIBRARY_GET_ADDR(capi_lib, "Player_GetHydraReactorAngle");
     ompapi->Player.GetTrainSpeed = (Player_GetTrainSpeed_t)LIBRARY_GET_ADDR(capi_lib, "Player_GetTrainSpeed");
-    ompapi->Player.IsPlayerUsingOmp = (Player_IsPlayerUsingOmp_t)LIBRARY_GET_ADDR(capi_lib, "Player_IsPlayerUsingOmp");
 
     // Retrieve Component functions
     ompapi->Component.Create = (Component_Create_t)LIBRARY_GET_ADDR(capi_lib, "Component_Create");
@@ -2577,6 +3100,153 @@ static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
 
     // Retrieve NPC functions
     ompapi->NPC.Connect = (NPC_Connect_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Connect");
+    ompapi->NPC.Create = (NPC_Create_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Create");
+    ompapi->NPC.Destroy = (NPC_Destroy_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Destroy");
+    ompapi->NPC.FromID = (NPC_FromID_t)LIBRARY_GET_ADDR(capi_lib, "NPC_FromID");
+    ompapi->NPC.GetID = (NPC_GetID_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetID");
+    ompapi->NPC.IsValid = (NPC_IsValid_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsValid");
+    ompapi->NPC.Spawn = (NPC_Spawn_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Spawn");
+    ompapi->NPC.Respawn = (NPC_Respawn_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Respawn");
+    ompapi->NPC.SetPos = (NPC_SetPos_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetPos");
+    ompapi->NPC.GetPos = (NPC_GetPos_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetPos");
+    ompapi->NPC.SetRot = (NPC_SetRot_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetRot");
+    ompapi->NPC.GetRot = (NPC_GetRot_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetRot");
+    ompapi->NPC.SetFacingAngle = (NPC_SetFacingAngle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetFacingAngle");
+    ompapi->NPC.GetFacingAngle = (NPC_GetFacingAngle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetFacingAngle");
+    ompapi->NPC.SetVirtualWorld = (NPC_SetVirtualWorld_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetVirtualWorld");
+    ompapi->NPC.GetVirtualWorld = (NPC_GetVirtualWorld_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVirtualWorld");
+    ompapi->NPC.SetInterior = (NPC_SetInterior_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetInterior");
+    ompapi->NPC.GetInterior = (NPC_GetInterior_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetInterior");
+    ompapi->NPC.Move = (NPC_Move_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Move");
+    ompapi->NPC.MoveToPlayer = (NPC_MoveToPlayer_t)LIBRARY_GET_ADDR(capi_lib, "NPC_MoveToPlayer");
+    ompapi->NPC.StopMove = (NPC_StopMove_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StopMove");
+    ompapi->NPC.IsMoving = (NPC_IsMoving_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsMoving");
+    ompapi->NPC.SetSkin = (NPC_SetSkin_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetSkin");
+    ompapi->NPC.IsStreamedIn = (NPC_IsStreamedIn_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsStreamedIn");
+    ompapi->NPC.IsAnyStreamedIn = (NPC_IsAnyStreamedIn_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsAnyStreamedIn");
+    ompapi->NPC.GetAll = (NPC_GetAll_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetAll");
+    ompapi->NPC.SetHealth = (NPC_SetHealth_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetHealth");
+    ompapi->NPC.GetHealth = (NPC_GetHealth_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetHealth");
+    ompapi->NPC.SetArmour = (NPC_SetArmour_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetArmour");
+    ompapi->NPC.GetArmour = (NPC_GetArmour_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetArmour");
+    ompapi->NPC.IsDead = (NPC_IsDead_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsDead");
+    ompapi->NPC.SetInvulnerable = (NPC_SetInvulnerable_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetInvulnerable");
+    ompapi->NPC.IsInvulnerable = (NPC_IsInvulnerable_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsInvulnerable");
+    ompapi->NPC.SetWeapon = (NPC_SetWeapon_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetWeapon");
+    ompapi->NPC.GetWeapon = (NPC_GetWeapon_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeapon");
+    ompapi->NPC.SetAmmo = (NPC_SetAmmo_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetAmmo");
+    ompapi->NPC.GetAmmo = (NPC_GetAmmo_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetAmmo");
+    ompapi->NPC.SetAmmoInClip = (NPC_SetAmmoInClip_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetAmmoInClip");
+    ompapi->NPC.GetAmmoInClip = (NPC_GetAmmoInClip_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetAmmoInClip");
+    ompapi->NPC.EnableReloading = (NPC_EnableReloading_t)LIBRARY_GET_ADDR(capi_lib, "NPC_EnableReloading");
+    ompapi->NPC.IsReloadEnabled = (NPC_IsReloadEnabled_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsReloadEnabled");
+    ompapi->NPC.IsReloading = (NPC_IsReloading_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsReloading");
+    ompapi->NPC.EnableInfiniteAmmo = (NPC_EnableInfiniteAmmo_t)LIBRARY_GET_ADDR(capi_lib, "NPC_EnableInfiniteAmmo");
+    ompapi->NPC.IsInfiniteAmmoEnabled = (NPC_IsInfiniteAmmoEnabled_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsInfiniteAmmoEnabled");
+    ompapi->NPC.GetWeaponState = (NPC_GetWeaponState_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponState");
+    ompapi->NPC.SetKeys = (NPC_SetKeys_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetKeys");
+    ompapi->NPC.GetKeys = (NPC_GetKeys_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetKeys");
+    ompapi->NPC.SetWeaponSkillLevel = (NPC_SetWeaponSkillLevel_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetWeaponSkillLevel");
+    ompapi->NPC.GetWeaponSkillLevel = (NPC_GetWeaponSkillLevel_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponSkillLevel");
+    ompapi->NPC.MeleeAttack = (NPC_MeleeAttack_t)LIBRARY_GET_ADDR(capi_lib, "NPC_MeleeAttack");
+    ompapi->NPC.StopMeleeAttack = (NPC_StopMeleeAttack_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StopMeleeAttack");
+    ompapi->NPC.IsMeleeAttacking = (NPC_IsMeleeAttacking_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsMeleeAttacking");
+    ompapi->NPC.SetFightingStyle = (NPC_SetFightingStyle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetFightingStyle");
+    ompapi->NPC.GetFightingStyle = (NPC_GetFightingStyle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetFightingStyle");
+    ompapi->NPC.Shoot = (NPC_Shoot_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Shoot");
+    ompapi->NPC.IsShooting = (NPC_IsShooting_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsShooting");
+    ompapi->NPC.AimAt = (NPC_AimAt_t)LIBRARY_GET_ADDR(capi_lib, "NPC_AimAt");
+    ompapi->NPC.AimAtPlayer = (NPC_AimAtPlayer_t)LIBRARY_GET_ADDR(capi_lib, "NPC_AimAtPlayer");
+    ompapi->NPC.StopAim = (NPC_StopAim_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StopAim");
+    ompapi->NPC.IsAiming = (NPC_IsAiming_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsAiming");
+    ompapi->NPC.IsAimingAtPlayer = (NPC_IsAimingAtPlayer_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsAimingAtPlayer");
+    ompapi->NPC.SetWeaponAccuracy = (NPC_SetWeaponAccuracy_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetWeaponAccuracy");
+    ompapi->NPC.GetWeaponAccuracy = (NPC_GetWeaponAccuracy_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponAccuracy");
+    ompapi->NPC.SetWeaponReloadTime = (NPC_SetWeaponReloadTime_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetWeaponReloadTime");
+    ompapi->NPC.GetWeaponReloadTime = (NPC_GetWeaponReloadTime_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponReloadTime");
+    ompapi->NPC.GetWeaponActualReloadTime = (NPC_GetWeaponActualReloadTime_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponActualReloadTime");
+    ompapi->NPC.SetWeaponShootTime = (NPC_SetWeaponShootTime_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetWeaponShootTime");
+    ompapi->NPC.GetWeaponShootTime = (NPC_GetWeaponShootTime_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponShootTime");
+    ompapi->NPC.SetWeaponClipSize = (NPC_SetWeaponClipSize_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetWeaponClipSize");
+    ompapi->NPC.GetWeaponClipSize = (NPC_GetWeaponClipSize_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponClipSize");
+    ompapi->NPC.GetWeaponActualClipSize = (NPC_GetWeaponActualClipSize_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetWeaponActualClipSize");
+    ompapi->NPC.EnterVehicle = (NPC_EnterVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_EnterVehicle");
+    ompapi->NPC.ExitVehicle = (NPC_ExitVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ExitVehicle");
+    ompapi->NPC.PutInVehicle = (NPC_PutInVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_PutInVehicle");
+    ompapi->NPC.RemoveFromVehicle = (NPC_RemoveFromVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_RemoveFromVehicle");
+    ompapi->NPC.GetVehicle = (NPC_GetVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicle");
+    ompapi->NPC.GetVehicleID = (NPC_GetVehicleID_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicleID");
+    ompapi->NPC.GetEnteringVehicle = (NPC_GetEnteringVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetEnteringVehicle");
+    ompapi->NPC.GetEnteringVehicleID = (NPC_GetEnteringVehicleID_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetEnteringVehicleID");
+    ompapi->NPC.GetVehicleSeat = (NPC_GetVehicleSeat_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicleSeat");
+    ompapi->NPC.GetEnteringVehicleSeat = (NPC_GetEnteringVehicleSeat_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetEnteringVehicleSeat");
+    ompapi->NPC.IsEnteringVehicle = (NPC_IsEnteringVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsEnteringVehicle");
+    ompapi->NPC.UseVehicleSiren = (NPC_UseVehicleSiren_t)LIBRARY_GET_ADDR(capi_lib, "NPC_UseVehicleSiren");
+    ompapi->NPC.IsVehicleSirenUsed = (NPC_IsVehicleSirenUsed_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsVehicleSirenUsed");
+    ompapi->NPC.SetVehicleHealth = (NPC_SetVehicleHealth_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetVehicleHealth");
+    ompapi->NPC.GetVehicleHealth = (NPC_GetVehicleHealth_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicleHealth");
+    ompapi->NPC.SetVehicleHydraThrusters = (NPC_SetVehicleHydraThrusters_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetVehicleHydraThrusters");
+    ompapi->NPC.GetVehicleHydraThrusters = (NPC_GetVehicleHydraThrusters_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicleHydraThrusters");
+    ompapi->NPC.SetVehicleGearState = (NPC_SetVehicleGearState_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetVehicleGearState");
+    ompapi->NPC.GetVehicleGearState = (NPC_GetVehicleGearState_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicleGearState");
+    ompapi->NPC.SetVehicleTrainSpeed = (NPC_SetVehicleTrainSpeed_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetVehicleTrainSpeed");
+    ompapi->NPC.GetVehicleTrainSpeed = (NPC_GetVehicleTrainSpeed_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetVehicleTrainSpeed");
+    ompapi->NPC.CreatePath = (NPC_CreatePath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_CreatePath");
+    ompapi->NPC.DestroyPath = (NPC_DestroyPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_DestroyPath");
+    ompapi->NPC.DestroyAllPath = (NPC_DestroyAllPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_DestroyAllPath");
+    ompapi->NPC.GetPathCount = (NPC_GetPathCount_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetPathCount");
+    ompapi->NPC.AddPointToPath = (NPC_AddPointToPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_AddPointToPath");
+    ompapi->NPC.RemovePointFromPath = (NPC_RemovePointFromPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_RemovePointFromPath");
+    ompapi->NPC.ClearPath = (NPC_ClearPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ClearPath");
+    ompapi->NPC.GetPathPointCount = (NPC_GetPathPointCount_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetPathPointCount");
+    ompapi->NPC.GetPathPoint = (NPC_GetPathPoint_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetPathPoint");
+    ompapi->NPC.GetCurrentPathPointIndex = (NPC_GetCurrentPathPointIndex_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetCurrentPathPointIndex");
+    ompapi->NPC.IsValidPath = (NPC_IsValidPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsValidPath");
+    ompapi->NPC.HasPathPointInRange = (NPC_HasPathPointInRange_t)LIBRARY_GET_ADDR(capi_lib, "NPC_HasPathPointInRange");
+    ompapi->NPC.MoveByPath = (NPC_MoveByPath_t)LIBRARY_GET_ADDR(capi_lib, "NPC_MoveByPath");
+    ompapi->NPC.ResetAnimation = (NPC_ResetAnimation_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ResetAnimation");
+    ompapi->NPC.SetAnimation = (NPC_SetAnimation_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetAnimation");
+    ompapi->NPC.GetAnimation = (NPC_GetAnimation_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetAnimation");
+    ompapi->NPC.ApplyAnimation = (NPC_ApplyAnimation_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ApplyAnimation");
+    ompapi->NPC.ClearAnimations = (NPC_ClearAnimations_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ClearAnimations");
+    ompapi->NPC.SetSpecialAction = (NPC_SetSpecialAction_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetSpecialAction");
+    ompapi->NPC.GetSpecialAction = (NPC_GetSpecialAction_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetSpecialAction");
+    ompapi->NPC.StartPlayback = (NPC_StartPlayback_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StartPlayback");
+    ompapi->NPC.StartPlaybackEx = (NPC_StartPlaybackEx_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StartPlaybackEx");
+    ompapi->NPC.StopPlayback = (NPC_StopPlayback_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StopPlayback");
+    ompapi->NPC.PausePlayback = (NPC_PausePlayback_t)LIBRARY_GET_ADDR(capi_lib, "NPC_PausePlayback");
+    ompapi->NPC.IsPlayingPlayback = (NPC_IsPlayingPlayback_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsPlayingPlayback");
+    ompapi->NPC.IsPlaybackPaused = (NPC_IsPlaybackPaused_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsPlaybackPaused");
+    ompapi->NPC.LoadRecord = (NPC_LoadRecord_t)LIBRARY_GET_ADDR(capi_lib, "NPC_LoadRecord");
+    ompapi->NPC.UnloadRecord = (NPC_UnloadRecord_t)LIBRARY_GET_ADDR(capi_lib, "NPC_UnloadRecord");
+    ompapi->NPC.IsValidRecord = (NPC_IsValidRecord_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsValidRecord");
+    ompapi->NPC.GetRecordCount = (NPC_GetRecordCount_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetRecordCount");
+    ompapi->NPC.UnloadAllRecords = (NPC_UnloadAllRecords_t)LIBRARY_GET_ADDR(capi_lib, "NPC_UnloadAllRecords");
+    ompapi->NPC.OpenNode = (NPC_OpenNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_OpenNode");
+    ompapi->NPC.CloseNode = (NPC_CloseNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_CloseNode");
+    ompapi->NPC.IsNodeOpen = (NPC_IsNodeOpen_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsNodeOpen");
+    ompapi->NPC.GetNodeType = (NPC_GetNodeType_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetNodeType");
+    ompapi->NPC.SetNodePoint = (NPC_SetNodePoint_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetNodePoint");
+    ompapi->NPC.GetNodePointPosition = (NPC_GetNodePointPosition_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetNodePointPosition");
+    ompapi->NPC.GetNodePointCount = (NPC_GetNodePointCount_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetNodePointCount");
+    ompapi->NPC.GetNodeInfo = (NPC_GetNodeInfo_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetNodeInfo");
+    ompapi->NPC.PlayNode = (NPC_PlayNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_PlayNode");
+    ompapi->NPC.StopPlayingNode = (NPC_StopPlayingNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_StopPlayingNode");
+    ompapi->NPC.PausePlayingNode = (NPC_PausePlayingNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_PausePlayingNode");
+    ompapi->NPC.ResumePlayingNode = (NPC_ResumePlayingNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ResumePlayingNode");
+    ompapi->NPC.IsPlayingNodePaused = (NPC_IsPlayingNodePaused_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsPlayingNodePaused");
+    ompapi->NPC.IsPlayingNode = (NPC_IsPlayingNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsPlayingNode");
+    ompapi->NPC.ChangeNode = (NPC_ChangeNode_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ChangeNode");
+    ompapi->NPC.UpdateNodePoint = (NPC_UpdateNodePoint_t)LIBRARY_GET_ADDR(capi_lib, "NPC_UpdateNodePoint");
+    ompapi->NPC.SetSurfingOffset = (NPC_SetSurfingOffset_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetSurfingOffset");
+    ompapi->NPC.GetSurfingOffset = (NPC_GetSurfingOffset_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetSurfingOffset");
+    ompapi->NPC.SetSurfingVehicle = (NPC_SetSurfingVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetSurfingVehicle");
+    ompapi->NPC.GetSurfingVehicle = (NPC_GetSurfingVehicle_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetSurfingVehicle");
+    ompapi->NPC.SetSurfingObject = (NPC_SetSurfingObject_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetSurfingObject");
+    ompapi->NPC.GetSurfingObject = (NPC_GetSurfingObject_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetSurfingObject");
+    ompapi->NPC.SetSurfingPlayerObject = (NPC_SetSurfingPlayerObject_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetSurfingPlayerObject");
+    ompapi->NPC.GetSurfingPlayerObject = (NPC_GetSurfingPlayerObject_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetSurfingPlayerObject");
+    ompapi->NPC.ResetSurfingData = (NPC_ResetSurfingData_t)LIBRARY_GET_ADDR(capi_lib, "NPC_ResetSurfingData");
 
     // Retrieve CustomModel functions
     ompapi->CustomModel.AddCharModel = (CustomModel_AddCharModel_t)LIBRARY_GET_ADDR(capi_lib, "CustomModel_AddCharModel");
