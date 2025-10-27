@@ -4270,8 +4270,8 @@
       "name": "NPC_Create",
       "params": [
         {
-          "name": "char*",
-          "type": "const"
+          "name": "name",
+          "type": "const char*"
         }
       ]
     },

@@ -394,7 +394,7 @@ typedef bool (*Core_RemoveRule_t)(const char* name);
 
 // NPC function type definitions
 typedef bool (*NPC_Connect_t)(const char* name, const char* script);
-typedef void* (*NPC_Create_t)(const char*);
+typedef void* (*NPC_Create_t)(const char* name);
 typedef bool (*NPC_Destroy_t)(void* npc);
 typedef void* (*NPC_FromID_t)(int npcid);
 typedef int (*NPC_GetID_t)(void* npc);
