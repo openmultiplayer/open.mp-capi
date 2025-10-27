@@ -1,77 +1,111 @@
 const fs = require("fs");
 const readline = require("node:readline");
+const path = require("path");
 
-const files = fs
-  .readdirSync("../../Server/Components/CAPI/Impl", { recursive: true })
-  .filter((file) => {
-    return file.endsWith("APIs.cpp");
-  });
-
-const APIs = {};
-
-const convertTypeNames = (type) => {
-  if (type === "StringCharPtr") {
-    return "const char*";
-  } else if (type === "objectPtr") {
-    return "void*";
-  } else if (type === "voidPtr") {
-    return "void*";
-  } else if (type === "OutputStringViewPtr") {
-    return "CAPIStringView*";
-  }
-  else if (type === "OutputStringBufferPtr") {
-    return "CAPIStringBuffer*";
-  } else {
-    return type;
-  }
+const TYPE_MAPPINGS = {
+  "StringCharPtr": "const char*",
+  "objectPtr": "void*",
+  "voidPtr": "void*",
+  "OutputStringViewPtr": "CAPIStringView*",
+  "OutputStringBufferPtr": "CAPIStringBuffer*"
 };
 
-files.forEach(async (file, index) => {
-  const data = fs.createReadStream("../../Server/Components/CAPI/Impl/" + file);
-  const lines = readline.createInterface({
-    input: data,
-    crlfDelay: Infinity,
+const CAPI_DIR = "../../Server/Components/CAPI/Impl";
+const OUTPUT_FILE = "../apidocs/api.json";
+const API_PREFIX = "OMP_CAPI(";
+
+function convertTypeName(type) {
+  return TYPE_MAPPINGS[type] || type;
+}
+
+function parseParameter(paramString) {
+  const parts = paramString.trim().split(" ");
+  if (parts.length < 2) return undefined;
+
+  return {
+    name: parts[1],
+    type: convertTypeName(parts[0])
+  };
+}
+
+function parseAPILine(line) {
+  const content = line.replace(API_PREFIX, "");
+  const [apiName, rest] = content.split(", ");
+  const componentName = apiName.split("_")[0];
+
+  const returnTypeEnd = rest.indexOf("(");
+  const returnType = rest.substring(0, returnTypeEnd);
+
+  const paramsStart = content.indexOf("(", content.indexOf(returnType)) + 1;
+  const paramsEnd = content.indexOf(")");
+  const paramsString = content.substring(paramsStart, paramsEnd);
+
+  const parameters = paramsString
+    .split(", ")
+    .map(parseParameter)
+    .filter(Boolean);
+
+  return {
+    component: componentName,
+    api: {
+      ret: convertTypeName(returnType),
+      name: apiName,
+      params: parameters
+    }
+  };
+}
+
+async function processFile(filePath) {
+  const apis = [];
+  const fileStream = fs.createReadStream(filePath);
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity
   });
 
-  for await (const line of lines) {
-    if (line.startsWith("OMP_CAPI(")) {
-      const v0 = line.replace("OMP_CAPI(", "");
-      const name = v0.split(", ")[0];
-      const component = name.split("_")[0];
-
-      if (APIs[component] === undefined) {
-        APIs[component] = [];
-      }
-
-      const v1 = v0.split(", ")[1];
-      const ret = v1.substring(0, v1.indexOf("("));
-      const v2 = v0.replace(`OMP_CAPI(${name}, ${ret}`, "");
-      const params = v2
-        .substring(v2.indexOf("(") + 1, v2.indexOf(")"))
-        .split(", ")
-        .map((param) => {
-          const name = param.split(" ")[1];
-          const type = param.split(" ")[0];
-
-          if (name === undefined) {
-            return undefined;
-          }
-
-          return {
-            name,
-            type: convertTypeNames(type),
-          };
-        });
-
-      APIs[component].push({
-        ret: convertTypeNames(ret),
-        name,
-        params: params.length === 1 && params[0] === undefined ? [] : params,
-      });
+  for await (const line of rl) {
+    if (line.startsWith(API_PREFIX)) {
+      apis.push(parseAPILine(line));
     }
   }
 
-  if (index == files.length - 1) {
-    fs.writeFileSync("../apidocs/api.json", JSON.stringify(APIs, undefined, 2));
+  return apis;
+}
+
+async function getAllAPIFiles() {
+  return fs
+    .readdirSync(CAPI_DIR, { recursive: true })
+    .filter(file => file.endsWith("APIs.cpp"))
+    .map(file => path.join(CAPI_DIR, file));
+}
+
+async function buildAPIDocumentation() {
+  const apiFiles = await getAllAPIFiles();
+  const apisByComponent = {};
+
+  for (const filePath of apiFiles) {
+    const apis = await processFile(filePath);
+
+    for (const { component, api } of apis) {
+      if (!apisByComponent[component]) {
+        apisByComponent[component] = [];
+      }
+      apisByComponent[component].push(api);
+    }
   }
-});
+
+  return apisByComponent;
+}
+
+async function main() {
+  try {
+    const documentation = await buildAPIDocumentation();
+    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(documentation, null, 2));
+    console.log(`API documentation generated at ${OUTPUT_FILE}`);
+  } catch (error) {
+    console.error("Error generating API documentation:", error);
+    process.exit(1);
+  }
+}
+
+main();

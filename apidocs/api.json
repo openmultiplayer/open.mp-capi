@@ -4272,6 +4272,10 @@
         {
           "name": "name",
           "type": "const char*"
+        },
+        {
+          "name": "id",
+          "type": "int*"
         }
       ]
     },
@@ -5889,12 +5893,12 @@
           "type": "void*"
         },
         {
-          "name": "char*",
-          "type": "const"
+          "name": "animlib",
+          "type": "const char*"
         },
         {
-          "name": "char*",
-          "type": "const"
+          "name": "animname",
+          "type": "const char*"
         },
         {
           "name": "delta",
@@ -5965,8 +5969,8 @@
           "type": "void*"
         },
         {
-          "name": "char*",
-          "type": "const"
+          "name": "recordName",
+          "type": "const char*"
         },
         {
           "name": "autoUnload",
@@ -6089,8 +6093,8 @@
       "name": "NPC_LoadRecord",
       "params": [
         {
-          "name": "char*",
-          "type": "const"
+          "name": "filePath",
+          "type": "const char*"
         }
       ]
     },
@@ -9183,6 +9187,36 @@
         {
           "name": "enable",
           "type": "bool"
+        }
+      ]
+    }
+  ],
+  "Recording": [
+    {
+      "ret": "bool",
+      "name": "Recording_Start",
+      "params": [
+        {
+          "name": "player",
+          "type": "void*"
+        },
+        {
+          "name": "type",
+          "type": "int"
+        },
+        {
+          "name": "file",
+          "type": "const char*"
+        }
+      ]
+    },
+    {
+      "ret": "bool",
+      "name": "Recording_Stop",
+      "params": [
+        {
+          "name": "player",
+          "type": "void*"
         }
       ]
     }
@@ -12535,36 +12569,6 @@
       "params": [
         {
           "name": "vehicle",
-          "type": "void*"
-        }
-      ]
-    }
-  ],
-  "Recording": [
-    {
-      "ret": "bool",
-      "name": "Recording_Start",
-      "params": [
-        {
-          "name": "player",
-          "type": "void*"
-        },
-        {
-          "name": "type",
-          "type": "int"
-        },
-        {
-          "name": "file",
-          "type": "const char*"
-        }
-      ]
-    },
-    {
-      "ret": "bool",
-      "name": "Recording_Stop",
-      "params": [
-        {
-          "name": "player",
           "type": "void*"
         }
       ]

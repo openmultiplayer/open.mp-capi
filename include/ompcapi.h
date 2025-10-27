@@ -368,7 +368,7 @@ typedef bool (*Core_SetChatRadius_t)(float globalChatRadius);
 typedef bool (*Core_SetMarkerRadius_t)(float playerMarkerRadius);
 typedef bool (*Core_SendRconCommand_t)(const char* command);
 typedef bool (*Core_SetDeathDropAmount_t)(int amount);
-typedef bool (*Core_GameMode_t)(const char* string);
+typedef bool (*Core_GameMode_SetText_t)(const char* string);
 typedef bool (*Core_SetGravity_t)(float gravity);
 typedef float (*Core_GetGravity_t)();
 typedef bool (*Core_SetNameTagsDrawDistance_t)(float distance);
@@ -394,7 +394,7 @@ typedef bool (*Core_RemoveRule_t)(const char* name);
 
 // NPC function type definitions
 typedef bool (*NPC_Connect_t)(const char* name, const char* script);
-typedef void* (*NPC_Create_t)(const char* name);
+typedef void* (*NPC_Create_t)(const char* name, int* id);
 typedef bool (*NPC_Destroy_t)(void* npc);
 typedef void* (*NPC_FromID_t)(int npcid);
 typedef int (*NPC_GetID_t)(void* npc);
@@ -501,17 +501,17 @@ typedef bool (*NPC_MoveByPath_t)(void* npc, int pathId, int moveType, float move
 typedef bool (*NPC_ResetAnimation_t)(void* npc);
 typedef bool (*NPC_SetAnimation_t)(void* npc, int animationId, float delta, bool loop, bool lockX, bool lockY, bool freeze, int time);
 typedef bool (*NPC_GetAnimation_t)(void* npc, int* animationId, float* delta, bool* loop, bool* lockX, bool* lockY, bool* freeze, int* time);
-typedef bool (*NPC_ApplyAnimation_t)(void* npc, const char*, const char*, float delta, bool loop, bool lockX, bool lockY, bool freeze, int time);
+typedef bool (*NPC_ApplyAnimation_t)(void* npc, const char* animlib, const char* animname, float delta, bool loop, bool lockX, bool lockY, bool freeze, int time);
 typedef bool (*NPC_ClearAnimations_t)(void* npc);
 typedef bool (*NPC_SetSpecialAction_t)(void* npc, int action);
 typedef int (*NPC_GetSpecialAction_t)(void* npc);
-typedef bool (*NPC_StartPlayback_t)(void* npc, const char*, bool autoUnload, float startPosX, float startPosY, float startPosZ, float startRotX, float startRotY, float startRotZ);
+typedef bool (*NPC_StartPlayback_t)(void* npc, const char* recordName, bool autoUnload, float startPosX, float startPosY, float startPosZ, float startRotX, float startRotY, float startRotZ);
 typedef bool (*NPC_StartPlaybackEx_t)(void* npc, int recordId, bool autoUnload, float startPosX, float startPosY, float startPosZ, float startRotX, float startRotY, float startRotZ);
 typedef bool (*NPC_StopPlayback_t)(void* npc);
 typedef bool (*NPC_PausePlayback_t)(void* npc, bool paused);
 typedef bool (*NPC_IsPlayingPlayback_t)(void* npc);
 typedef bool (*NPC_IsPlaybackPaused_t)(void* npc);
-typedef int (*NPC_LoadRecord_t)(const char*);
+typedef int (*NPC_LoadRecord_t)(const char* filePath);
 typedef bool (*NPC_UnloadRecord_t)(int recordId);
 typedef bool (*NPC_IsValidRecord_t)(int recordId);
 typedef int (*NPC_GetRecordCount_t)();
@@ -2174,7 +2174,7 @@ struct Core_t {
     Core_SetMarkerRadius_t SetMarkerRadius;
     Core_SendRconCommand_t SendRconCommand;
     Core_SetDeathDropAmount_t SetDeathDropAmount;
-    Core_GameMode_t GameMode;
+    Core_GameMode_SetText_t GameMode_SetText;
     Core_SetGravity_t SetGravity;
     Core_GetGravity_t GetGravity;
     Core_SetNameTagsDrawDistance_t SetNameTagsDrawDistance;
@@ -3075,7 +3075,7 @@ static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
     ompapi->Core.SetMarkerRadius = (Core_SetMarkerRadius_t)LIBRARY_GET_ADDR(capi_lib, "Core_SetMarkerRadius");
     ompapi->Core.SendRconCommand = (Core_SendRconCommand_t)LIBRARY_GET_ADDR(capi_lib, "Core_SendRconCommand");
     ompapi->Core.SetDeathDropAmount = (Core_SetDeathDropAmount_t)LIBRARY_GET_ADDR(capi_lib, "Core_SetDeathDropAmount");
-    ompapi->Core.GameMode = (Core_GameMode_t)LIBRARY_GET_ADDR(capi_lib, "Core_GameMode");
+    ompapi->Core.GameMode_SetText = (Core_GameMode_SetText_t)LIBRARY_GET_ADDR(capi_lib, "Core_GameMode_SetText");
     ompapi->Core.SetGravity = (Core_SetGravity_t)LIBRARY_GET_ADDR(capi_lib, "Core_SetGravity");
     ompapi->Core.GetGravity = (Core_GetGravity_t)LIBRARY_GET_ADDR(capi_lib, "Core_GetGravity");
     ompapi->Core.SetNameTagsDrawDistance = (Core_SetNameTagsDrawDistance_t)LIBRARY_GET_ADDR(capi_lib, "Core_SetNameTagsDrawDistance");

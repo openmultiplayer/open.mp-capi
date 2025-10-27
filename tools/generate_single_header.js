@@ -1,33 +1,33 @@
 const fs = require("fs");
 const readline = require("node:readline");
+const path = require("path");
 
-const filePath = "../include/ompcapi.h";
+const OUTPUT_FILE = "../include/ompcapi.h";
+const CAPI_DIR = "../../Server/Components/CAPI/Impl";
+const EVENTS_FILE = "../apidocs/events.json";
+const API_PREFIX = "OMP_CAPI(";
 
-const events = require("../apidocs/events.json");
-
-const files = fs
-  .readdirSync("../../Server/Components/CAPI/Impl", { recursive: true })
-  .filter((file) => {
-    return file.endsWith("APIs.cpp");
-  });
-
-const entityTypes = [
-  "Player",
-  "Vehicle",
-  "Menu",
-  "TextDraw",
-  "TextLabel",
-  "Object",
-  "PlayerObject",
-  "PlayerTextLabel3D",
-  "PlayerTextDraw",
-  "Class",
-  "GangZone",
-  "Pickup",
-  "NPC"
+const ENTITY_TYPES = [
+  "Player", "Vehicle", "Menu", "TextDraw", "TextLabel", "Object",
+  "PlayerObject", "PlayerTextLabel3D", "PlayerTextDraw", "Class",
+  "GangZone", "Pickup", "NPC"
 ];
 
-const predefinedTypes = `#ifndef OMPCAPI_H
+const TYPE_MAPPINGS = {
+  function: {
+    "StringCharPtr": "const char*",
+    "objectPtr": "void*",
+    "voidPtr": "void*",
+    "OutputStringViewPtr": "struct CAPIStringView*",
+    "OutputStringBufferPtr": "struct CAPIStringBuffer*",
+    "ComponentVersion": "struct ComponentVersion"
+  },
+  event: {
+    "CAPIStringView": "struct CAPIStringView"
+  }
+};
+
+const HEADER_TEMPLATE = `#ifndef OMPCAPI_H
 #define OMPCAPI_H
 
 #include <stdint.h>
@@ -105,145 +105,164 @@ struct CAPIStringBuffer
 
 `;
 
-fs.writeFileSync(filePath, predefinedTypes);
+function convertFunctionArgType(type) {
+  return TYPE_MAPPINGS.function[type] || type;
+}
 
-fs.appendFileSync(
-  filePath,
-  entityTypes
-    .map((type) => {
-      return `typedef void* ${type};\n`;
-    })
-    .join("")
-);
+function convertEventArgType(type) {
+  return TYPE_MAPPINGS.event[type] || type;
+}
 
-const APIs = {};
+function parseParameter(paramString) {
+  const parts = paramString.trim().split(" ");
+  if (parts.length < 2) return undefined;
 
-const convertFunctionArgTypeNames = (type) => {
-  if (type === "StringCharPtr") {
-    return "const char*";
-  } else if (type === "objectPtr") {
-    return "void*";
-  } else if (type === "voidPtr") {
-    return "void*";
-  } else if (type === "OutputStringViewPtr") {
-    return "struct CAPIStringView*";
-  } else if (type === "OutputStringBufferPtr") {
-    return "struct CAPIStringBuffer*";
-  }
-  else if (type === "ComponentVersion") {
-    return "struct ComponentVersion";
-  } else {
-    return type;
-  }
-};
+  return {
+    name: parts[1],
+    type: convertFunctionArgType(parts[0])
+  };
+}
 
-const convertEventArgTypeNames = (type) => {
-  if (type === "CAPIStringView") {
-    return "struct CAPIStringView";
-  } else {
-    return type;
-  }
-};
+function parseAPILine(line) {
+  const content = line.replace(API_PREFIX, "");
+  const [fullName, rest] = content.split(", ");
+  const [group, ...nameParts] = fullName.split("_");
+  const name = nameParts.join("_");
 
-files.forEach(async (file, index) => {
-  const data = fs.createReadStream("../../Server/Components/CAPI/Impl/" + file);
-  const lines = readline.createInterface({
-    input: data,
-    crlfDelay: Infinity,
+  const returnTypeEnd = rest.indexOf("(");
+  const returnType = rest.substring(0, returnTypeEnd);
+
+  const paramsStart = content.indexOf("(", content.indexOf(returnType)) + 1;
+  const paramsEnd = content.indexOf(")");
+  const paramsString = content.substring(paramsStart, paramsEnd);
+
+  const parameters = paramsString
+    .split(", ")
+    .map(parseParameter)
+    .filter(Boolean);
+
+  return {
+    group,
+    api: {
+      ret: convertFunctionArgType(returnType),
+      name,
+      params: parameters
+    }
+  };
+}
+
+async function processFile(filePath) {
+  const apis = [];
+  const fileStream = fs.createReadStream(filePath);
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity
   });
 
-  for await (const line of lines) {
-    if (line.startsWith("OMP_CAPI(")) {
-      const v0 = line.replace("OMP_CAPI(", "");
-      const name_full = v0.split(", ")[0];
-      const group = name_full.split("_")[0];
-      const name = name_full.split("_")[1];
-
-      if (APIs[group] === undefined) {
-        APIs[group] = [];
-      }
-
-      const v1 = v0.split(", ")[1];
-      const ret = v1.substring(0, v1.indexOf("("));
-      const v2 = v0.replace(`OMP_CAPI(${name}, ${ret}`, "");
-      const params = v2
-        .substring(v2.indexOf("(") + 1, v2.indexOf(")"))
-        .split(", ")
-        .map((param) => {
-          const name = param.split(" ")[1];
-          const type = param.split(" ")[0];
-
-          if (name === undefined) {
-            return undefined;
-          }
-
-          return {
-            name,
-            type: convertFunctionArgTypeNames(type),
-          };
-        });
-
-      APIs[group].push({
-        ret: convertFunctionArgTypeNames(ret),
-        name,
-        params: params.length === 1 && params[0] === undefined ? [] : params,
-      });
+  for await (const line of rl) {
+    if (line.startsWith(API_PREFIX)) {
+      apis.push(parseAPILine(line));
     }
   }
 
-  if (index == files.length - 1) {
-    generateFunctions(APIs);
+  return apis;
+}
 
-    fs.appendFileSync(filePath, `\n#endif\n\n#endif /* OMPCAPI_H */\n`);
+async function collectAPIs() {
+  const files = fs
+    .readdirSync(CAPI_DIR, { recursive: true })
+    .filter(file => file.endsWith("APIs.cpp"));
+
+  const apisByGroup = {};
+
+  for (const file of files) {
+    const filePath = path.join(CAPI_DIR, file);
+    const apis = await processFile(filePath);
+
+    for (const { group, api } of apis) {
+      if (!apisByGroup[group]) {
+        apisByGroup[group] = [];
+      }
+      apisByGroup[group].push(api);
+    }
   }
-});
 
-const generateFunctions = (apis) => {
-  const entries = Object.entries(apis);
-  entries.forEach(([group, funcs], index) => {
-    fs.appendFileSync(filePath, `\n\n// ${group} function type definitions\n`);
-    funcs.forEach((func) => {
+  return apisByGroup;
+}
+
+function writeEntityTypeDefinitions() {
+  const definitions = ENTITY_TYPES
+    .map(type => `typedef void* ${type};\n`)
+    .join("");
+  fs.appendFileSync(OUTPUT_FILE, definitions);
+}
+
+function writeFunctionTypeDefinitions(apis) {
+  Object.entries(apis).forEach(([group, functions]) => {
+    fs.appendFileSync(OUTPUT_FILE, `\n\n// ${group} function type definitions\n`);
+
+    functions.forEach(func => {
+      const params = func.params
+        .map(param => `${param.type} ${param.name}`)
+        .join(", ");
       fs.appendFileSync(
-        filePath,
-        `typedef ${func.ret} (*${group}_${func.name}_t)(${func.params
-          .map((param) => `${param.type} ${param.name}`)
-          .join(", ")});\n`
+        OUTPUT_FILE,
+        `typedef ${func.ret} (*${group}_${func.name}_t)(${params});\n`
       );
     });
   });
+}
 
-  generateEvents(events);
-
-  entries.forEach(([group, funcs], index) => {
+function writeEventDefinitions(events) {
+  Object.entries(events).forEach(([group, eventList]) => {
     fs.appendFileSync(
-      filePath,
-      `\n// ${group} functions\nstruct ${group}_t {\n`
+      OUTPUT_FILE,
+      `\n\n// ${group} event type and arguments definitions`
     );
-    funcs.forEach((func) => {
-      fs.appendFileSync(
-        filePath,
-        `    ${group}_${func.name}_t ${func.name};\n`
-      );
+
+    eventList.forEach(event => {
+      const args = event.args
+        .map(param => `        ${convertEventArgType(param.type)}* ${param.name};`)
+        .join("\n");
+
+      fs.appendFileSync(OUTPUT_FILE, `
+struct EventArgs_${event.name} {
+    int size;
+    struct {
+${args}
+    } *list;
+};
+typedef bool (*EventCallback_${event.name})(struct EventArgs_${event.name} args);\n`);
     });
-    fs.appendFileSync(filePath, `};\n`);
   });
 
-  fs.appendFileSync(
-    filePath,
-    `\n// All APIs
-struct OMPAPI_t {
-`
-  );
+  fs.appendFileSync(OUTPUT_FILE, `\n`);
+}
 
-  entries.forEach(([group, funcs], index) => {
-    fs.appendFileSync(filePath, `    struct ${group}_t ${group};\n`);
+function writeStructDefinitions(apis) {
+  Object.entries(apis).forEach(([group, functions]) => {
+    fs.appendFileSync(OUTPUT_FILE, `\n// ${group} functions\nstruct ${group}_t {\n`);
+
+    functions.forEach(func => {
+      fs.appendFileSync(OUTPUT_FILE, `    ${group}_${func.name}_t ${func.name};\n`);
+    });
+
+    fs.appendFileSync(OUTPUT_FILE, `};\n`);
+  });
+}
+
+function writeMainAPIStruct(apis) {
+  fs.appendFileSync(OUTPUT_FILE, `\n// All APIs\nstruct OMPAPI_t {\n`);
+
+  Object.keys(apis).forEach(group => {
+    fs.appendFileSync(OUTPUT_FILE, `    struct ${group}_t ${group};\n`);
   });
 
-  fs.appendFileSync(filePath, `};\n`);
+  fs.appendFileSync(OUTPUT_FILE, `};\n`);
+}
 
-  fs.appendFileSync(
-    filePath,
-    `
+function writeInitializationFunction(apis) {
+  fs.appendFileSync(OUTPUT_FILE, `
 static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
     void* capi_lib = LIBRARY_OPEN("./components/$CAPI.dll");
@@ -264,52 +283,47 @@ static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
     {
         return false;
     }
-`
-  );
+`);
 
-  entries.forEach(([group, funcs], index) => {
-    fs.appendFileSync(filePath, `\n    // Retrieve ${group} functions\n`);
-    funcs.forEach((func) => {
+  Object.entries(apis).forEach(([group, functions]) => {
+    fs.appendFileSync(OUTPUT_FILE, `\n    // Retrieve ${group} functions\n`);
+
+    functions.forEach(func => {
       fs.appendFileSync(
-        filePath,
+        OUTPUT_FILE,
         `    ompapi->${group}.${func.name} = (${group}_${func.name}_t)LIBRARY_GET_ADDR(capi_lib, "${group}_${func.name}");\n`
       );
     });
   });
-  fs.appendFileSync(filePath, `\n    return true;\n};\n`);
-};
 
-const generateEvents = (events_) => {
-  const entries = Object.entries(events_);
-  entries.forEach(([group, events], index) => {
-    fs.appendFileSync(
-      filePath,
-      `\n\n// ${group} event type and arguments definitions`
-    );
-    events.forEach((event) => {
-      fs.appendFileSync(
-        filePath,
-        `
-struct EventArgs_${event.name} {
-    int size;
-    struct {
-${event.args.map((param) => `        ${convertEventArgTypeNames(param.type)}* ${param.name};`).join("\n")}
-    } *list;
-};
-typedef bool (*EventCallback_${event.name})(struct EventArgs_${event.name
-        } args);\n`
-      );
-    });
-  });
-  fs.appendFileSync(filePath, `\n`);
-};
+  fs.appendFileSync(OUTPUT_FILE, `\n    return true;\n};\n`);
+}
 
-// generateEvents(events);
+function writeFooter() {
+  fs.appendFileSync(OUTPUT_FILE, `\n#endif\n\n#endif /* OMPCAPI_H */\n`);
+}
 
-/*
- const structBegin = `struct ${group} {\n`;
-    fs.appendFileSync(filePath, structBegin);
-    funcs.forEach(func => {
-      fs.appendFileSync(filePath, structBegin);
-    })
-      */
+async function generateHeader() {
+  try {
+    fs.writeFileSync(OUTPUT_FILE, HEADER_TEMPLATE);
+
+    writeEntityTypeDefinitions();
+
+    const apis = await collectAPIs();
+    const events = require(EVENTS_FILE);
+
+    writeFunctionTypeDefinitions(apis);
+    writeEventDefinitions(events);
+    writeStructDefinitions(apis);
+    writeMainAPIStruct(apis);
+    writeInitializationFunction(apis);
+    writeFooter();
+
+    console.log(`Header file generated at ${OUTPUT_FILE}`);
+  } catch (error) {
+    console.error("Error generating header file:", error);
+    process.exit(1);
+  }
+}
+
+generateHeader();
