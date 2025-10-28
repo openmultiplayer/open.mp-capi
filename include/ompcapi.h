@@ -399,6 +399,7 @@ typedef bool (*NPC_Destroy_t)(void* npc);
 typedef void* (*NPC_FromID_t)(int npcid);
 typedef int (*NPC_GetID_t)(void* npc);
 typedef bool (*NPC_IsValid_t)(void* npc);
+typedef void* (*NPC_GetPlayer_t)(void* npc);
 typedef bool (*NPC_Spawn_t)(void* npc);
 typedef bool (*NPC_Respawn_t)(void* npc);
 typedef bool (*NPC_SetPos_t)(void* npc, float x, float y, float z);
@@ -2206,6 +2207,7 @@ struct NPC_t {
     NPC_FromID_t FromID;
     NPC_GetID_t GetID;
     NPC_IsValid_t IsValid;
+    NPC_GetPlayer_t GetPlayer;
     NPC_Spawn_t Spawn;
     NPC_Respawn_t Respawn;
     NPC_SetPos_t SetPos;
@@ -3105,6 +3107,7 @@ static bool omp_initialize_capi(struct OMPAPI_t* ompapi) {
     ompapi->NPC.FromID = (NPC_FromID_t)LIBRARY_GET_ADDR(capi_lib, "NPC_FromID");
     ompapi->NPC.GetID = (NPC_GetID_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetID");
     ompapi->NPC.IsValid = (NPC_IsValid_t)LIBRARY_GET_ADDR(capi_lib, "NPC_IsValid");
+    ompapi->NPC.GetPlayer = (NPC_GetPlayer_t)LIBRARY_GET_ADDR(capi_lib, "NPC_GetPlayer");
     ompapi->NPC.Spawn = (NPC_Spawn_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Spawn");
     ompapi->NPC.Respawn = (NPC_Respawn_t)LIBRARY_GET_ADDR(capi_lib, "NPC_Respawn");
     ompapi->NPC.SetPos = (NPC_SetPos_t)LIBRARY_GET_ADDR(capi_lib, "NPC_SetPos");

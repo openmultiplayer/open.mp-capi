@@ -4320,6 +4320,16 @@
       ]
     },
     {
+      "ret": "void*",
+      "name": "NPC_GetPlayer",
+      "params": [
+        {
+          "name": "npc",
+          "type": "void*"
+        }
+      ]
+    },
+    {
       "ret": "bool",
       "name": "NPC_Spawn",
       "params": [
